@@ -10,28 +10,35 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
+import food1 from "../../Assets/food1.png"
+import food2 from "../../Assets/food2.png"
+import food3 from "../../Assets/food3.png"
+import food4 from "../../Assets/food4.png"
+import food5 from "../../Assets/food5.png"
+// import food6 from "../../Assets/food"
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
     {
         label: 'San Francisco – Oakland Bay Bridge, United States',
         imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+            food4,
     },
     {
         label: 'Bird',
         imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+            food5,
     },
     {
         label: 'Bali, Indonesia',
         imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+            food3,
     },
     {
         label: 'Goč, Serbia',
         imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+            food2,
     },
 ];
 
@@ -53,20 +60,8 @@ function SwipeableTextMobileStepper() {
     };
 
     return (
-        <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
-            <Paper
-                square
-                elevation={0}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: 50,
-                    pl: 2,
-                    bgcolor: 'background.default',
-                }}
-            >
-                <Typography>{images[activeStep].label}</Typography>
-            </Paper>
+        <Box sx={{ flexGrow: 1 }}>
+
             <AutoPlaySwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                 index={activeStep}
@@ -79,9 +74,8 @@ function SwipeableTextMobileStepper() {
                             <Box
                                 component="img"
                                 sx={{
-                                    height: 255,
+                                    height: "auto",
                                     display: 'block',
-                                    maxWidth: 400,
                                     overflow: 'hidden',
                                     width: '100%',
                                 }}
@@ -102,8 +96,8 @@ function SwipeableTextMobileStepper() {
                         onClick={handleNext}
                         disabled={activeStep === maxSteps - 1}
                     >
-                        Next
-            {theme.direction === 'rtl' ? (
+
+                        {theme.direction === 'rtl' ? (
                             <KeyboardArrowLeft />
                         ) : (
                                 <KeyboardArrowRight />
@@ -117,8 +111,8 @@ function SwipeableTextMobileStepper() {
                         ) : (
                                 <KeyboardArrowLeft />
                             )}
-                        Back
-          </Button>
+
+                    </Button>
                 }
             />
         </Box>

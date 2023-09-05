@@ -63,6 +63,8 @@ import Cart from './Cart'
 
 // const menuDatas: string[] = ["Menu1", "Menu2", "Menu3"]
 
+
+
 const scrollToDiv = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
         window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });

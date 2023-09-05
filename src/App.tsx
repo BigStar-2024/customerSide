@@ -10,6 +10,7 @@ import Register from './components/Auth/Register';
 import Home from './components/Landing/Home';
 import Navbar from "./components/Landing/Navbar";
 import AddItem from './components/AddItem/AddItem';
+import Add from "@mui/icons-material/Add";
 
 function App() {
     return (

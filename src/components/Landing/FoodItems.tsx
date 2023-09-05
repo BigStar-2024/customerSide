@@ -14,19 +14,29 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
+
+
 interface FoodItemsProps {
+    foodID: string;
     foodImg: string;
     foodName: string;
     foodDescription: string;
     foodPrice: string;
     foodStatus: string;
+    recProducts: string[];
 }
 
+interface foodData {
+    foodData: FoodItemsProps;
+}
 
+const FoodItems: React.FC<foodData> = (props) => {
 
-const FoodItems: React.FC<FoodItemsProps> = (props) => {
+    const foodData: FoodItemsProps = props.foodData;
 
-    const { foodImg, foodName, foodDescription, foodPrice, foodStatus } = props;
+    const imgButtonClick = (foodData: FoodItemsProps) => {
+        console.log("foodData", foodData);
+    }
 
     return (
         <Paper
@@ -44,29 +54,32 @@ const FoodItems: React.FC<FoodItemsProps> = (props) => {
                     <Grid container item xs={12} spacing={2}>
                         <Grid item xs={7}>
                             <Typography gutterBottom variant="subtitle1" component="div" whiteSpace='pre-wrap'>
-                                {foodName}
+                                {foodData.foodName}
                             </Typography>
                         </Grid>
                         <Grid item xs={5} >
                             <Typography gutterBottom variant="subtitle1" component="div" textAlign={"end"}>
-                                {foodStatus}
+                                {foodData.foodStatus}
                             </Typography>
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" color="text.secondary">
-                            {foodDescription}
+                            {foodData.foodDescription}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                            {foodPrice}
+                            {foodData.foodPrice}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid item xs={3}>
                     {/* <ButtonBase sx={{ width: 128, height: 128 }}> */}
-                    <ImgButton ImgUrl={foodImg} ImgTitle="Order" ImgWidth="100%" />
+                    <div onClick={() => imgButtonClick(foodData)}>
+
+                        <ImgButton ImgUrl={foodData.foodImg} ImgTitle="Order" ImgWidth="100%" />
+                    </div>
                     {/* <Img alt="complex" src={foodImg} sx={{ width: 100, height: 100 }} /> */}
                     {/* </ButtonBase> */}
                 </Grid>
