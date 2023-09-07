@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Carousel from './Carousel'
 import Add from '@mui/icons-material/Add'
 import { Grid, Stack, IconButton, Typography, Divider, Container } from '@mui/material';
@@ -12,29 +12,61 @@ import Box from '@mui/material/Box';
 import RecmCarousel from './RecmCarousel';
 import Chip from '@mui/material/Chip';
 import makeStyles from "@mui/material"
+import { foodData } from '../../helpers/foodData';
+import { useLocation } from 'react-router-dom';
 // import makeStyles from '@mui/styles/makeStyles';
 
-// const useStyles = makeStyles((theme) => ({
-//     container: {
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         minHeight: '100vh',
-//     },
-// }));
+import { RootState } from '../../redux-functionality';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addToCart } from '../../redux-functionality/slices/cartSlice';
+import { InitialState } from '../../types/redux/CartCounter';
+
 
 const AddItem = () => {
 
-    const addNumber = 0;
+    const location = useLocation();
 
-    const [value, setValue] = React.useState('female');
+    const foodState: InitialState = location.state;
+
+    // useEffect(() => {
+    //     console.log("foodStateReceive", foodState);
+    // })
+
+    const dispatch = useDispatch();
+
+
+    const [addNumber, setAddNumber] = useState(foodState.addedNumber);
+
+    const [value, setValue] = useState('cheeseB');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     };
 
+    const minuPro = () => {
+        if (addNumber == 0)
+            return;
+        setAddNumber(addNumber - 1);
+    }
 
-    // const classes = useStyles();
+    const plusPro = () => {
+        setAddNumber(addNumber + 1)
+    }
+
+    const addCart = (foodState: InitialState) => {
+
+        // console.log("foodState", foodState);
+        if (!!foodState.addedNumber) {
+
+        }
+        if (addNumber !== 0) {
+            foodState.addedNumber = addNumber;
+            dispatch(addToCart(foodState));
+        }
+        // dispatch(addItem(value));
+    }
+
     return (
         <>
             <Container sx={{ marginTop: '100px' }}>
@@ -52,21 +84,17 @@ const AddItem = () => {
                                 </Typography>
                                 </Grid>
                                 <Grid item container xs={6} justifyContent={"center"} >
-                                    <Grid item xs={2}>
-                                        <IconButton>
+                                    <Stack direction={'row'}>
+                                        <IconButton onClick={minuPro}>
                                             <RemoveCircleOutlineIcon />
                                         </IconButton>
-                                    </Grid>
-                                    <Grid item xs={2} style={{ textAlign: "center", }} justifyContent={"flex-end"}>
                                         <Typography gutterBottom variant="h6" component="div" whiteSpace='pre-wrap' marginBottom={"0px"}>
                                             {addNumber}
                                         </Typography>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <IconButton>
+                                        <IconButton onClick={plusPro}>
                                             <ControlPointIcon />
                                         </IconButton>
-                                    </Grid>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ textAlign: "left", }}>
@@ -132,7 +160,7 @@ const AddItem = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" size="medium">
+                            <Button variant="contained" size="medium" onClick={() => addCart(foodState)} >
                                 {"AddItem"}
                             </Button>
                         </Grid>

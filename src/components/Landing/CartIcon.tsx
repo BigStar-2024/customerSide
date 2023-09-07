@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux'
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { RootState } from '../../redux-functionality';
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -20,7 +22,11 @@ interface CartType {
 
 const CartNumber: React.FC<CartType> = (props) => {
 
-    const cartNumber = props.cartNumber;
+    let cartNumber: number = props.cartNumber;
+    React.useEffect(() => {
+        cartNumber = props.cartNumber
+    })
+
 
     return (
         <IconButton aria-label="cart" >

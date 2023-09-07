@@ -9,6 +9,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import Link from "react-router-dom"
 
 import food1 from "../../Assets/food1.png"
 import food2 from "../../Assets/food2.png"

@@ -10,17 +10,41 @@ import Register from './components/Auth/Register';
 import Home from './components/Landing/Home';
 import Navbar from "./components/Landing/Navbar";
 import AddItem from './components/AddItem/AddItem';
-import Add from "@mui/icons-material/Add";
+
+import { persistor, store } from './store';
+
+import { Provider, useDispatch } from 'react-redux';
+
+
+{/* <Route path="/item">
+    <Route path="/item/men">
+        <Route path=":id" element={<ItemView />} />
+    </Route>
+    <Route path="/item/women">
+        <Route path=":id" element={<ItemView />} />
+    </Route>
+    <Route path="/item/kids">
+        <Route path=":id" element={<ItemView />} />
+    </Route>
+    <Route path="/item/featured">
+        <Route path=":id" element={<ItemView />} />
+    </Route>
+</Route> */}
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<AddItem />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/item">
+                        <Route path="/item/">
+                            <Route path=":id" element={<AddItem />} />
+                        </Route>
+                    </Route>
                 </Routes>
             </Router >
         </div>

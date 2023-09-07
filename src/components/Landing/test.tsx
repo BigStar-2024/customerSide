@@ -6,4 +6,4 @@ const parsedData = JSON.parse(data);
 // Extract menu titles
 const menuTitles: string[] = parsedData.map((menu: { [key: string]: string[] }) => Object.keys(menu)[0]);
 
-console.log(menuTitles);
+// console.log(menuTitles);

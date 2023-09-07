@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, RefObject } from 'react';
 import Navbar from "./Navbar";
 import Category from './Category';
 import Footer from '../Other/Footer';
@@ -10,60 +10,27 @@ import food3 from '../../Assets/food3.png'
 import food4 from '../../Assets/food4.png'
 import food5 from '../../Assets/food5.png'
 import food6 from '../../Assets/food6.png'
-import Cart from './Cart'
+import EmptyCart from './EmptyCart'
+import ItemsCart from "./ItemsCart"
 
-// interface Food {
-//     foodImg: string;
-//     foodName: string;
-//     foodDescription: string;
-//     foodPrice: string;
-//     foodStatus: string;
-// }
-
-// interface MenuData {
-//     menuTitle: string[];
-//     foods: Food[];
-// }
-
-// const menuDatas: MenuData = {
-//     menuTitle: ["Menu1", "Menu2", "Menu3"],
-//     foods: [
-//         {
-//             foodImg: food1,
-//             foodName: "Cheese Burger",
-//             foodDescription: "Entree Ingredient information",
-//             foodPrice: "$6.57",
-//             foodStatus: "Popular"
-//         },
-//         {
-//             foodImg: food2,
-//             foodName: "Burger & Fires",
-//             foodDescription: "Entree Ingredient information",
-//             foodPrice: "$8.11",
-//             foodStatus: "Recommended"
-//         },
-//         {
-//             foodImg: food3,
-//             foodName: "Pizza",
-//             foodDescription: "Entree Ingredient information",
-//             foodPrice: "$10",
-//             foodStatus: "Recommended"
-//         },
-//         {
-//             foodImg: food4,
-//             foodName: "Cheese Pizza",
-//             foodDescription: "Entree Ingredient information",
-//             foodPrice: "$12.3",
-//             foodStatus: "Popular"
-//         }
-//     ]
-// };
+import { menuData } from "../../helpers/menuData";
+import { categoryData } from '../../helpers/categoryData';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { RootState } from '../../redux-functionality';
 
 
 
-// const menuDatas: string[] = ["Menu1", "Menu2", "Menu3"]
 
 
+
+interface CategoryType {
+    categoryID: string;
+    categoryName: string;
+    imageURL: string;
+    menuID: string;
+    order: string;
+    restaurantID: string;
+}
 
 const scrollToDiv = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
@@ -72,31 +39,48 @@ const scrollToDiv = (ref: React.RefObject<HTMLElement>) => {
     }
 }
 
-
-
 const Home = () => {
 
-    const [cartData, setCartData] = useState(0);
+
+    const itemsInCart = useSelector((state: RootState) => {
+        if (state && state.cartCounter && !!state.cartCounter.cartItems) {
+            return state.cartCounter.cartItems.length
+        } else {
+            return 0;
+        }
+    });
+
+    const [cartData, setCartData] = useState(itemsInCart);
 
     const [isLoading, setIsLoading] = useState(true);
-    const [cartShow, setCartShow] = useState(false);
+    const [emptyCartShow, setEmptyCartShow] = useState(false);
+    const [itemsCartShow, setItemsCartShow] = useState(false);
 
-    const categoryRef1 = useRef(null);
-    const categoryRef2 = useRef(null);
-    const categoryRef3 = useRef(null);
-    const categoryRef4 = useRef(null);
+    const menuDatas = menuData.sort((a: any, b: any) => (a.order - b.order));
+
+
     // "category1", "category2", "category3", "category4"
+    const categoryRefs = useRef<RefObject<HTMLDivElement>[]>([]);
+
+    const sortedCategories: CategoryType[] = menuDatas.flatMap((menuData) => {
+        const categories = categoryData.filter((category) => category.menuID == menuData.menuID);
+        categories.sort((a: any, b: any) => a.order - b.order);
+        return categories;
+    });
+
+
     const handleCategory = (categoryTitle: string) => {
-        console.log("cate", categoryTitle);
-        if (categoryTitle == "category1")
-            scrollToDiv(categoryRef1);
-        if (categoryTitle == "category2")
-            scrollToDiv(categoryRef2);
-        if (categoryTitle == "category3")
-            scrollToDiv(categoryRef3);
-        if (categoryTitle == "category4")
-            scrollToDiv(categoryRef4);
+        // const categoryIndex = sortedCategories.findIndex((category) => category.categoryName === categoryTitle);
+        // if (categoryIndex !== -1 && categoryRefs.current[categoryIndex] && categoryRefs.current[categoryIndex].current) {
+        //     scrollToDiv(categoryRefs.current[categoryIndex]);
+        // }
     }
+
+    // useEffect(() => {
+    //     categoryRefs.current = Array(sortedCategories.length)
+    //         .fill(null)
+    //         .map(() => useRef<HTMLDivElement>(null));
+    // }, [sortedCategories]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -104,14 +88,24 @@ const Home = () => {
         }, 2000);
     }, []);
 
-    const openCart = () => {
-        setCartShow(true);
+    const openCart = (itemNumber: number) => {
+        if (!!itemNumber) {
+            setItemsCartShow(true);
+        } else {
+            setEmptyCartShow(true);
+        }
     }
 
     const closeCart = () => {
-        setCartShow(false);
+        setEmptyCartShow(false);
+        setItemsCartShow(false);
         console.log("closeCart");
     }
+
+
+    // console.log("sortedCategories", sortedCategories);
+
+    // console.log("menuDatas", menuDatas);
 
     return (
         <div className="home-container">
@@ -130,7 +124,7 @@ const Home = () => {
                                 borderRadius: '50%',
                                 padding: '5px',
                             }}
-                            onClick={openCart}
+                            onClick={() => openCart(itemsInCart)}
                         >
                             <CartIcon cartNumber={cartData} />
                         </div>
@@ -138,23 +132,26 @@ const Home = () => {
                             <Navbar CategoryClick={handleCategory} />
                         </div>
                         <div className="home-food-content">
-                            <div ref={categoryRef1} className="Category1">
-                                <Category categoryName="Category1" />
-                            </div>
-                            <div ref={categoryRef2} className="Category2">
-                                <Category categoryName="Category2" />
-                            </div>
-                            <div ref={categoryRef3} className="Category3">
-                                <Category categoryName="Category3" />
-                            </div>
-                            <div ref={categoryRef4} className="Category4">
-                                <Category categoryName="Category4" />
-                            </div>
-                            <div className="home-foot">y
+                            {
+                                sortedCategories.map((category, index) => {
+                                    // const newCategoryRef = useRef<HTMLDivElement>(null);
+                                    // categoryRefs.current[index] = newCategoryRef;
+                                    return (
+                                        <>
+                                            {/* <div ref={newCategoryRef} > */}
+                                            <Category categoryData={category} key={index} />
+                                            {/* </div> */}
+                                        </>
+                                    )
+                                })
+
+                            }
+                            <div className="home-foot">
                                 <Footer />
                             </div>
                         </div>
-                        <Cart show={cartShow} closeCart={closeCart} />
+                        <EmptyCart show={emptyCartShow} closeCart={closeCart} />
+                        <ItemsCart show={itemsCartShow} closeCart={closeCart} />
                     </>
                 )}
         </div>

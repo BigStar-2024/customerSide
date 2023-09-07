@@ -99,6 +99,7 @@ const CartComponent: React.FC<CartType> = (props) => {
 
     const cartShow = props.show;
 
+
     const [openCart, setOpenCart] = React.useState(cartShow);
 
 
