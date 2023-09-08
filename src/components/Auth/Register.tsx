@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import { Stack } from "@mui/material"
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -19,6 +20,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MenuX from '../../Assets/MenuX.svg';
+
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import facebookBtn from '../../Assets/facebook_btn.png';
 import instagramBtn from '../../Assets/instagram_btn.png';
@@ -93,25 +99,15 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="Username"
                                     required
                                     fullWidth
-                                    id="firstName"
-                                    label="First Name"
+                                    id="Username"
+                                    label="UserName"
                                     autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="family-name"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -151,17 +147,17 @@ export default function SignUp() {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DemoContainer components={['DatePicker']}>
-                                        <DatePicker label="Basic date picker" />
+                                        <DatePicker label="Date of Birth" sx={{ width: "100%" }} />
                                     </DemoContainer>
-                                </LocalizationProvider> */}
+                                </LocalizationProvider>
                             </Grid>
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
-                            color="error"
+                            color="primary"
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
@@ -214,12 +210,14 @@ export default function SignUp() {
                                 </Button>
                             </Grid>
                         </Grid>
-                        <Grid container justifyContent="flex-center" style={{ textAlign: "center" }} sx={{ mt: 3, mb: 2 }}>
-                            <Grid item xs={12}>
-                                <Link href="/login" variant="body2">
-                                    Already have an account? Login Now
+                        <Grid container justifyContent="center" style={{ textAlign: "center" }} sx={{ mt: 3, mb: 2 }}>
+                            <Stack direction="row" spacing={2} >
+                                <Typography gutterBottom variant="subtitle1" component="div" whiteSpace='pre-wrap'>
+                                    Already have an account?
+                            </Typography>
+                                <Link href="/login" variant="body2" sx={{ color: "red" }}>Login Now
                                 </Link>
-                            </Grid>
+                            </Stack>
                         </Grid>
                     </Box>
                 </Box>

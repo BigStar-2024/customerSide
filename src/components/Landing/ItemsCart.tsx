@@ -113,7 +113,6 @@ const CartComponent: React.FC<CartType> = (props) => {
     }
 
     useEffect(() => {
-
         setTotalPrice(price);
     })
 
@@ -137,11 +136,16 @@ const CartComponent: React.FC<CartType> = (props) => {
                     {
                         items.map((item, index) =>
                             <>
-                                <Card sx={{ display: 'flex', width: 400 }}>
+                                <Card sx={{
+                                    display: 'flex', width: 400, minWidth: 275,
+                                    ':hover': {
+                                        boxShadow: 20,
+                                    },
+                                }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: 151 }}
-                                        image={food1}
+                                        image={item.foodImg}
                                         alt="Live from space album cover"
                                     />
                                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -186,7 +190,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="h6" color="text.secondary" component="div">
-                                    {totalPrice}
+                                    {`$${totalPrice}`}
                                 </Typography>
                             </Grid>
                         </Grid>

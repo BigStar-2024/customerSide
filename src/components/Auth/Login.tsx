@@ -2,7 +2,9 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
+
+
+// Use AnimatePresence in your code
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -41,6 +43,14 @@ import facebookBtn from '../../Assets/facebook_btn.png';
 import instagramBtn from '../../Assets/instagram_btn.png';
 import googleBtn from '../../Assets/google_btn.png';
 import appleBtn from '../../Assets/apple_btn.png';
+
+import Google from '../../Assets/icons/google.svg'
+import Twitter from '../../Assets/icons/twitter.svg';
+import Facebook from '../../Assets/icons/facebook.svg';
+
+import AnimateButton from '../Other/AnimateButton';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery, Stack } from '@mui/material';
 
 
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -94,6 +104,21 @@ export default function SignUp() {
         });
     };
 
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const googleHandler = async () => {
+        // login || singup
+    };
+
+    const twitterHandler = async () => {
+        // login || singup
+    };
+
+    const facebookHandler = async () => {
+        // login || singup
+    };
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -122,7 +147,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="Email"
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -151,20 +176,72 @@ export default function SignUp() {
                                 </FormControl>
                             </Grid>
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="error"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Login
-                        </Button>
+                        {/* <AnimateButton>
+                            <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="primary">
+                                Login
+                                          </Button>
+                        </AnimateButton> */}
+                        <Box sx={{ mt: 5 }}>
 
-                        <Root>
+                            <Button
+                                disableElevation
+                                fullWidth
+                                size="medium"
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                            >
+                                Login
+                                </Button>
+                        </Box>
+                        <Root sx={{ mt: 5 }}>
                             <Divider>Or Register with</Divider>
                         </Root>
                         <Grid container spacing={2} sx={{ mt: 2 }} textAlign={"center"}>
+                            {/* <Stack
+                                direction="row"
+                                spacing={matchDownSM ? 1 : 2}
+                                justifyContent={matchDownSM ? 'space-around' : 'space-between'}
+                                sx={{ '& .MuiButton-startIcon': { mr: matchDownSM ? 0 : 1, ml: matchDownSM ? 0 : -0.5 } }}
+                            >
+                                <Button
+                                    href="https://www.google.com/"
+                                    variant="outlined"
+                                    color="secondary"
+                                    fullWidth={!matchDownSM}
+                                    startIcon={<img src={Google} alt="Google" />}
+                                    onClick={googleHandler}
+                                >
+                                    {!matchDownSM}
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    fullWidth={!matchDownSM}
+                                    startIcon={<img src={Facebook} alt="Instagram" />}
+                                    onClick={facebookHandler}
+                                >
+                                    {!matchDownSM && 'Facebook'}
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    fullWidth={!matchDownSM}
+                                    startIcon={<img src={Facebook} alt="Facebook" />}
+                                    onClick={facebookHandler}
+                                >
+                                    {!matchDownSM && 'Facebook'}
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    fullWidth={!matchDownSM}
+                                    startIcon={<img src={Twitter} alt="Apple" />}
+                                    onClick={twitterHandler}
+                                >
+                                    {!matchDownSM && 'Twitter'}
+                                </Button>
+                            </Stack> */}
                             <Grid item xs={3}>
                                 <Button variant="outlined" href="https://www.google.com/" size="small">
                                     <img

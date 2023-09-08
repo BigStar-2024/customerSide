@@ -19,10 +19,6 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { RootState } from '../../redux-functionality';
 
 
-
-
-
-
 interface CategoryType {
     categoryID: string;
     categoryName: string;
@@ -49,8 +45,6 @@ const Home = () => {
             return 0;
         }
     });
-
-    const [cartData, setCartData] = useState(itemsInCart);
 
     const [isLoading, setIsLoading] = useState(true);
     const [emptyCartShow, setEmptyCartShow] = useState(false);
@@ -126,7 +120,7 @@ const Home = () => {
                             }}
                             onClick={() => openCart(itemsInCart)}
                         >
-                            <CartIcon cartNumber={cartData} />
+                            <CartIcon cartNumber={itemsInCart} />
                         </div>
                         <div className="Navbar">
                             <Navbar CategoryClick={handleCategory} />

@@ -4,6 +4,7 @@ interface InitialState {
     categoryName: string;
     price: string;
     addedNumber: number;
+    foodImg: string;
 }
 
 interface CartItem {

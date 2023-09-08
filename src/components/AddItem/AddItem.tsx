@@ -21,6 +21,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addToCart } from '../../redux-functionality/slices/cartSlice';
 import { InitialState } from '../../types/redux/CartCounter';
+import { Link } from 'react-router-dom';
+import CartIcon from "../Landing/CartIcon"
 
 
 const AddItem = () => {
@@ -63,9 +65,20 @@ const AddItem = () => {
         if (addNumber !== 0) {
             foodState.addedNumber = addNumber;
             dispatch(addToCart(foodState));
+
         }
         // dispatch(addItem(value));
     }
+
+
+    const itemsInCart = useSelector((state: RootState) => {
+        if (state && state.cartCounter && !!state.cartCounter.cartItems) {
+            return state.cartCounter.cartItems.length
+        } else {
+            return 0;
+        }
+    });
+
 
     return (
         <>
@@ -80,8 +93,8 @@ const AddItem = () => {
                             <Grid item container xs={12}  >
                                 <Grid item xs={6} >
                                     <Typography gutterBottom variant="h6" component="div" whiteSpace='pre-wrap'>
-                                        Meat Lovers
-                                </Typography>
+                                        {foodState.foodName}
+                                    </Typography>
                                 </Grid>
                                 <Grid item container xs={6} justifyContent={"center"} >
                                     <Stack direction={'row'}>
@@ -101,8 +114,8 @@ const AddItem = () => {
                                 <Box>
 
                                     <Typography gutterBottom variant="subtitle1" component="div" whiteSpace='pre-wrap'>
-                                        Description
-                            </Typography>
+                                        {foodState.categoryName}
+                                    </Typography>
                                     <Typography gutterBottom variant="subtitle1" component="div" whiteSpace='pre-wrap'>
                                         Meat Lovers is a pizza culinary which contains sliced beef sausage
                                         toppings, minced beef, beef burger, chicken sausage, tomato, cheese,
@@ -120,7 +133,6 @@ const AddItem = () => {
                         <Grid item container xs={12} md={4} sx={{ alignContent: "center" }} >
                             <Grid item container xs={12}>
                                 <Grid item xs={6}>
-
                                     <Typography gutterBottom variant="h6" component="div" whiteSpace='pre-wrap'>
                                         {"Topping(1)"}
                                     </Typography>
@@ -147,7 +159,18 @@ const AddItem = () => {
                             </Grid>
                         </Grid>
                         <Grid item container xs={12} md={8} >
-                            <RecmCarousel />
+                            <div style={{ position: "relative" }}>
+                                <RecmCarousel />
+                                <div style={{
+                                    position: "absolute", right: -20, bottom: 0,
+                                    backgroundColor: 'gray',
+                                    borderRadius: '50%',
+                                    padding: '5px',
+                                }}>
+
+                                    <CartIcon cartNumber={itemsInCart} />
+                                </div>
+                            </div>
                         </Grid>
                     </Grid>
                     <Grid item container xs={12} style={{ textAlign: 'center', alignItems: "center" }}>
@@ -156,13 +179,15 @@ const AddItem = () => {
                                 Price
                             </Typography>
                             <Typography gutterBottom variant="h5" whiteSpace='pre-wrap'>
-                                $23.60
+                                {`${foodState.price}`}
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" size="medium" onClick={() => addCart(foodState)} >
-                                {"AddItem"}
-                            </Button>
+                            <Link to="/home">
+                                <Button variant="contained" size="medium" onClick={() => addCart(foodState)} >
+                                    {"AddItem"}
+                                </Button>
+                            </Link>
                         </Grid>
                         <Divider />
                     </Grid>

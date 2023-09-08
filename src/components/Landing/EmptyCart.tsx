@@ -140,7 +140,6 @@ const CartComponent: React.FC<CartType> = (props) => {
                 >
                     <ShoppingCartOutlinedIcon sx={{ marginTop: "50px", width: "200px", height: "200px", border: "1px solid paper", padding: "0 4px" }} />
 
-
                     <Typography variant="subtitle2" gutterBottom>
                         Once you add items to your cart,
                     </Typography>

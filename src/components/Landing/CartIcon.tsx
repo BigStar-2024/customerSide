@@ -8,8 +8,8 @@ import { RootState } from '../../redux-functionality';
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
-        right: -3,
-        top: 13,
+        right: 0,
+        top: 0,
         border: `2px solid ${theme.palette.background.paper}`,
         padding: '0 4px',
     },
@@ -30,8 +30,8 @@ const CartNumber: React.FC<CartType> = (props) => {
 
     return (
         <IconButton aria-label="cart" >
-            <StyledBadge badgeContent={cartNumber} color="secondary">
-                <ShoppingCartIcon style={{ width: "30px", height: "30px" }} />
+            <StyledBadge badgeContent={cartNumber} color='error'>
+                <ShoppingCartIcon style={{ width: "40px", height: "40px" }} />
             </StyledBadge>
         </IconButton>
     );
