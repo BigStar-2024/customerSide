@@ -30,28 +30,34 @@ import facebookBtn from '../../Assets/facebook_btn.png';
 import instagramBtn from '../../Assets/instagram_btn.png';
 import googleBtn from '../../Assets/google_btn.png';
 import appleBtn from '../../Assets/apple_btn.png';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useAppDispatch } from '../../redux-functionality';
+import UserInfo from "../../types/redux/Auth"
+import { addToUser, userSignUp } from '../../redux-functionality/slices/authSlice';
+import { useEffect } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
-// function Copyright(props: any) {
-//     return (
-//         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//             {'Copyright © '}
-//             <Link color="inherit" href="https://mui.com/">
-//                 Your Website
-//       </Link>{' '}
-//             {new Date().getFullYear()}
-//             {'.'}
-//         </Typography>
-//     );
-// }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+// const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//     .then((userCredential) => {
+//         // Signed in 
+//         const user = userCredential.user;
+//         // ...
+//     })
+//     .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         // ..
+//     });
+
 export default function SignUp() {
+    const [userInfo, setUserInfo] = React.useState({ userName: "", userEmail: "", userPassword: "", userGender: "" });
+    const [userBirth, setUserBirth] = React.useState<Dayjs | null>(null);
+    const [userSignUpStatus, setUserSignUpStatus] = React.useState("idle");
+
+    const dispatch = useAppDispatch();
 
     const Root = styled('div')(({ theme }) => ({
         width: '100%',
@@ -61,20 +67,43 @@ export default function SignUp() {
         },
     }));
 
-    const [gender, setGender] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setGender(event.target.value as string);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserInfo({
+            ...userInfo,
+            [e.target.name]: e.target.value
         });
+    }
+
+
+    const onChangeGender = (event: SelectChangeEvent) => {
+        // setGender(event.target.value as string);
+        setUserInfo({ ...userInfo, [event.target.name]: event.target.value as string })
+        // console.log(gender);
     };
+
+    const canSignUp = [userInfo.userEmail, userInfo.userGender, userInfo.userName, userInfo.userPassword, userBirth].every(Boolean) && userSignUpStatus === "idle"
+
+    const handleSignUp = async () => {
+
+        if (canSignUp) {
+            try {
+                setUserSignUpStatus("pending");
+                const newUser = { ...userInfo, userBirth: userBirth ? userBirth.toISOString() : "" }
+
+                await dispatch(userSignUp(newUser)).unwrap()
+                // setUserInfo({ userName: "", userEmail: "", userPassword: "", userGender: "" })
+                // setUserBirth(null);
+                // console.log("sign up success!")
+            } catch (error) {
+                console.error("Failed to sign up the user", error)
+            } finally {
+                setUserSignUpStatus("idle")
+            }
+        } else {
+            console.log("enter all information")
+        }
+    }
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -97,18 +126,28 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Register to get started
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
+
                                 <TextField
+                                    name="userName"
                                     autoComplete="given-name"
-                                    name="Username"
+                                    label="*UserName"
+                                    value={userInfo.userName} variant="outlined"
+                                    fullWidth
+                                    onChange={onChange} />
+                                {/* <TextField
+                                    autoComplete="given-name"
+                                    name="name"
                                     required
                                     fullWidth
-                                    id="Username"
+                                    id="name"
                                     label="UserName"
-                                    autoFocus
-                                />
+                                    autoComplete = "given-name"
+                                    value={userInfo.userName}
+                                    onChange={onChange}
+                                /> */}
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -116,19 +155,23 @@ export default function SignUp() {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
-                                    name="email"
+                                    name="userEmail"
                                     autoComplete="email"
+                                    value={userInfo.userEmail}
+                                    onChange={onChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    name="password"
+                                    name="userPassword"
                                     label="Password"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={userInfo.userPassword}
+                                    onChange={onChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -137,29 +180,31 @@ export default function SignUp() {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={gender}
+                                        name="userGender"
+                                        value={userInfo.userGender}
                                         label="Gender"
-                                        onChange={handleChange}
+                                        onChange={onChangeGender}
                                     >
-                                        <MenuItem value={1}>Male</MenuItem>
-                                        <MenuItem value={2}>Female</MenuItem>
+                                        <MenuItem value="Male">Male</MenuItem>
+                                        <MenuItem value="Female">Female</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DemoContainer components={['DatePicker']}>
-                                        <DatePicker label="Date of Birth" sx={{ width: "100%" }} />
+                                        <DatePicker label="Date of Birth" sx={{ width: "100%" }} value={userBirth} onChange={setUserBirth} />
                                     </DemoContainer>
                                 </LocalizationProvider>
                             </Grid>
                         </Grid>
                         <Button
-                            type="submit"
                             fullWidth
                             color="primary"
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={handleSignUp}
+                            disabled={!canSignUp}
                         >
                             Register
                         </Button>

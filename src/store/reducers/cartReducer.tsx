@@ -9,7 +9,9 @@ const initState = {
     forgetLoading: false,
     cartNumber: '',
 }
-const authReducer = (state = initState, action: any) => {
+
+
+const cartReducer = (state = initState, action: any) => {
     switch (action.type) {
         case 'ADD_ITEM':
             return {
@@ -58,4 +60,4 @@ const authReducer = (state = initState, action: any) => {
             }
     }
 }
-export default authReducer
+export default cartReducer

@@ -51,7 +51,7 @@ import Facebook from '../../Assets/icons/facebook.svg';
 import AnimateButton from '../Other/AnimateButton';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Stack } from '@mui/material';
-
+import { useAppDispatch } from '../../redux-functionality';
 
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -87,7 +87,12 @@ export default function SignUp() {
         },
     }));
 
+    const [password, setPassword] = React.useState("");
+    const [email, setEmail] = React.useState("");
     const [showPassword, setShowPassword] = React.useState(false);
+    const [userLogin, setUserLogin] = React.useState("idle");
+    const canSave = [email, password].every(Boolean) && userLogin === "idle";
+    const dispatch = useAppDispatch();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -106,6 +111,20 @@ export default function SignUp() {
 
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+
+
+
+    const handleLogin = () => async () => {
+        if (canSave) {
+            try {
+                setUserLogin("pending");
+                // dispatch()
+            } catch (error) {
+
+            }
+
+        }
+    }
 
     const googleHandler = async () => {
         // login || singup
@@ -150,6 +169,8 @@ export default function SignUp() {
                                     label="Email"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -172,6 +193,8 @@ export default function SignUp() {
                                             </InputAdornment>
                                         }
                                         label="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </FormControl>
                             </Grid>
@@ -190,6 +213,7 @@ export default function SignUp() {
                                 type="submit"
                                 variant="contained"
                                 color="primary"
+                                onClick={handleLogin}
                             >
                                 Login
                                 </Button>
@@ -286,7 +310,7 @@ export default function SignUp() {
                         </Grid>
                         <Grid container justifyContent="flex-center" style={{ textAlign: "center" }} sx={{ mt: 3, mb: 2 }}>
                             <Grid item xs={12}>
-                                Don't have an account?
+                                {"Don't have an account? "}
                                 <Link href="/register" variant="body2" style={{ color: "red" }}>
                                     Register Now
                                 </Link>

@@ -27,6 +27,8 @@ import CartIcon from "../Landing/CartIcon"
 
 const AddItem = () => {
 
+
+
     const location = useLocation();
 
     const foodState: InitialState = location.state;

@@ -14,6 +14,7 @@ import AddItem from './components/AddItem/AddItem';
 import { persistor, store } from './store';
 
 import { Provider, useDispatch } from 'react-redux';
+import Payment from "./components/Payment/payment";
 
 
 {/* <Route path="/item">
@@ -36,7 +37,7 @@ function App() {
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Payment />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />
@@ -45,6 +46,7 @@ function App() {
                             <Route path=":id" element={<AddItem />} />
                         </Route>
                     </Route>
+                    <Route path="/payment" element={<Payment />} />
                 </Routes>
             </Router >
         </div>
