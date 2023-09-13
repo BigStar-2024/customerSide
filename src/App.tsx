@@ -12,7 +12,7 @@ import Navbar from "./components/Landing/Navbar";
 import AddItem from './components/AddItem/AddItem';
 
 import { persistor, store } from './store';
-
+import Track from "./components/Tracking/Track"
 import { Provider, useDispatch } from 'react-redux';
 import Payment from "./components/Payment/payment";
 
@@ -31,6 +31,7 @@ function App() {
                         </Route>
                     </Route>
                     <Route path="/payment" element={<Payment />} />
+                    <Route path="/track" element={<Track />} />
                 </Routes>
             </Router >
         </div>

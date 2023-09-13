@@ -44,8 +44,8 @@ function Copyright(props: any) {
 
 const Footer = () => {
     return (
-        <Box>
-            <Grid container spacing={2}>
+        <Box maxWidth={"450px"} style={{ margin: "auto" }} justifyContent={"center"} alignItems={"center"}>
+            <Grid container spacing={2} >
                 <Grid item container xs={12} style={{ textAlign: "center" }} >
                     <Grid item xs={12}>
                         <img src={brand2} alt="Website Logo" />

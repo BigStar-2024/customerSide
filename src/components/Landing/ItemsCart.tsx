@@ -27,6 +27,8 @@ import food1 from "../../Assets/food1.png"
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { InitialState } from "../../types/redux/CartCounter";
+import { useNavigate } from 'react-router-dom';
+import { current } from "@reduxjs/toolkit";
 
 
 interface MenuTabProps {
@@ -51,8 +53,10 @@ interface CartType {
 }
 
 
+
 const CartComponent: React.FC<CartType> = (props) => {
 
+    const navigate = useNavigate();
     const cartShow = props.show;
     const theme = useTheme();
     const [openCart, setOpenCart] = React.useState(cartShow);
@@ -115,6 +119,12 @@ const CartComponent: React.FC<CartType> = (props) => {
     useEffect(() => {
         setTotalPrice(price);
     })
+
+    const currentEmail = useSelector((state: RootState) => state.auth.currentUser);
+    const handlePayment = () => {
+        console.log("currentEmail: ", currentEmail);
+        navigate("/payment", { state: currentEmail });
+    }
 
     return (
         <Dialog
@@ -199,6 +209,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                                 color="primary"
                                 size="medium"
                                 variant="contained"
+                                onClick={handlePayment}
                             >
                                 Go To payment
                             </Button>

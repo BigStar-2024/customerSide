@@ -211,7 +211,6 @@ const Navbar: React.FC<MenuTabProps> = (props) => {
                             <EmojiPeopleIcon />
                         </Button>
 
-
                         <Dialog
                             open={openWaiter}
                             TransitionComponent={Transition}
@@ -297,7 +296,8 @@ const Navbar: React.FC<MenuTabProps> = (props) => {
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Language
-                    </Link>
+                        </Link>
+
 
                         <Button onClick={viewFeedback} variant="outlined" sx={{ my: 1, mx: 1.5 }}>
                             <ChatOutlinedIcon />

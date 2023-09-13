@@ -69,14 +69,14 @@ export const userLogin = createAsyncThunk("auth/userLogin", async (loginInfo: { 
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log("userlogin error", errorMessage);
             switch (errorMessage) {
-
                 case "Firebase: Error (auth/user-not-found).":
-                    console.log("userlogin error", errorMessage);
-
                     throw new Error("user not found. please sign up!");
                 case "Firebase: Error (auth/wrong-password).":
                     throw new Error("password wrong");
+                case "Firebase: Error (auth/invalid-email).":
+                    throw new Error("invalid-email");
             }
         });
     return result;
@@ -88,6 +88,9 @@ export const userSlice = createSlice({
     name: UpdateAuthAction,
     initialState: authState,
     reducers: {
+        successAuth: (state, action: PayloadAction<string>) => {
+            state.error = action.payload
+        },
         addToUser: (state, action: PayloadAction<UserInfo>) => {
             const { userName, userEmail, userPassword, userGender, userBirth } = action.payload;
 
@@ -123,6 +126,6 @@ export const userSlice = createSlice({
             })
     }
 });
-export const { addToUser } = userSlice.actions;
+export const { addToUser, successAuth } = userSlice.actions;
 
 export default userSlice.reducer;

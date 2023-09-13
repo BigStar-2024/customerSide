@@ -56,6 +56,9 @@ import { userLogin } from '../../redux-functionality/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { ToastContainer, toast } from 'react-toastify';
+import { successAuth } from '../../redux-functionality/slices/authSlice'
+import { addToCart } from '../../redux-functionality/slices/cartSlice';
+
 
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -103,18 +106,16 @@ export default function SignUp() {
     const canSave = [loginInfo.email, loginInfo.password].every(Boolean) && loginStatus === "idle";
     // const [loginSuccess, setLoginSuccess] = React.useState()
 
-    const loginError = useSelector((state: RootState) => state.auth.error);
+    let loginError = useSelector((state: RootState) => state.auth.error);
 
-    // React.useEffect(() => {
-
-    //     if (loginError) {
-    //         console.log("login error", loginError);
-    //         toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
-    //     }
-    // }, [loginError]);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    const loginSuccess = () => {
+        dispatch(successAuth(""));
+        navigate("/home");
+    }
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -132,6 +133,12 @@ export default function SignUp() {
             [e.target.name]: e.target.value,
         })
     }
+    React.useEffect(() => {
+        if (loginError) {
+            console.log("login error", loginError);
+            toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
+        }
+    }, [loginError])
 
     const handleLogin = async () => {
         // console.log("idle------------------")
@@ -140,10 +147,12 @@ export default function SignUp() {
                 setLoginStatus("pending");
                 // console.log("pending------------")
                 await dispatch(userLogin(loginInfo)).unwrap();
+
+
                 // console.log("success------------")
                 setLoginInfo({ email: "", password: "" });
-                toast.success("login success", { position: toast.POSITION.TOP_CENTER })
-                // navigate("/home")
+                loginSuccess();
+
             } catch (error) {
 
             } finally {
@@ -151,10 +160,6 @@ export default function SignUp() {
             }
         }
 
-        if (loginError) {
-            console.log("login error", loginError);
-            toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
-        }
     }
 
     const googleHandler = async () => {

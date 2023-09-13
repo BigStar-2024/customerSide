@@ -61,7 +61,12 @@ import {
 } from '@mui/material/FormControlLabel';
 import RadioGroup, { useRadioGroup } from '@mui/material/RadioGroup';
 import Background1 from "../../Assets/payment/background1.jpg"
-
+import visa from "../../Assets/icons/visa.png"
+import master from "../../Assets/icons/master.png"
+import maestro from "../../Assets/icons/maestro.png"
+import discover from "../../Assets/icons/discover.png"
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AccountCircle } from '@mui/icons-material';
 
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -94,7 +99,15 @@ const styles = {
     backgroundRepeat: 'no-repeat',
 };
 
+
 export default function SignUp() {
+
+
+    const navigate = useNavigate();
+
+    const handleOrder = () => {
+        navigate("/track");
+    }
 
     const Root = styled('div')(({ theme }) => ({
         width: '100%',
@@ -111,6 +124,7 @@ export default function SignUp() {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+    const location = useLocation();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -170,103 +184,112 @@ export default function SignUp() {
                 backgroundRepeat: 'no-repeat',
             }}>
                 <Stack direction="row" sx={{ mt: "50px" }}>
-                    <Grid container >
+                    <Grid container spacing={2} >
                         <Grid item xs={12} md={4}>
 
-                            <Card >
 
-                                <ThemeProvider theme={defaultTheme}>
-                                    <Container component="main" maxWidth="xs">
-                                        <CssBaseline />
-                                        <Box
-                                            sx={{
-                                                marginTop: 3,
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <Typography component="h1" variant="h5">
-                                                Payment
+
+                            <ThemeProvider theme={defaultTheme}>
+                                <Container component="main" maxWidth="xs">
+                                    <CssBaseline />
+                                    <Box
+                                        sx={{
+                                            marginTop: 3,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Typography component="h1" variant="h5">
+                                            Payment
                                         </Typography>
+                                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <InputLabel htmlFor="email-login">Email or phone</InputLabel>
+                                                    <OutlinedInput
+                                                        id="email-login"
+                                                        type="email"
+                                                        value={location.state}
+                                                        name="email"
+                                                        // onChange={feedEmailChanged}
+                                                        placeholder="Enter email address"
+                                                        fullWidth
 
+                                                    />
+                                                    {/* <TextField label={'margin="none"'} id="margin-none"
+                                                        value={location.state}
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <AccountCircle />
+                                                                </InputAdornment>
+                                                            ),
+                                                        }} /> */}
+                                                </Grid>
+                                                <Grid item xs={12}>
 
-                                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12}>
-                                                        <InputLabel htmlFor="email-login">Email Address</InputLabel>
-                                                        <OutlinedInput
-                                                            id="email-login"
-                                                            type="email"
-                                                            name="email"
-                                                            // onChange={feedEmailChanged}
-                                                            placeholder="Enter email address"
-                                                            fullWidth
+                                                    <Root sx={{ mt: 5 }}>
+                                                        <Divider>Or Register with</Divider>
+                                                    </Root>
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} sx={{ mt: 2 }} textAlign={"center"}>
+                                                <Grid item xs={4}>
+                                                    <Button variant="outlined" href="https://www.google.com/" size="small">
+                                                        <img
+                                                            src={googleBtn}
+                                                            style={{ width: "30px", height: "30px" }}
+                                                            alt="title"
+                                                            loading="lazy"
                                                         />
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-
-                                                        <Root sx={{ mt: 5 }}>
-                                                            <Divider>Or Register with</Divider>
-                                                        </Root>
-                                                    </Grid>
+                                                    </Button>
                                                 </Grid>
-
-                                                <Grid container spacing={2} sx={{ mt: 2 }} textAlign={"center"}>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="outlined" href="https://www.google.com/" size="small">
-                                                            <img
-                                                                src={googleBtn}
-                                                                style={{ width: "30px", height: "30px" }}
-                                                                alt="title"
-                                                                loading="lazy"
-                                                            />
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="outlined" href="https://www.apple.com/" size="small">
-                                                            <img
-                                                                src={appleBtn}
-                                                                style={{ width: "30px", height: "30px" }}
-                                                                // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                                alt="title"
-                                                                loading="lazy"
-                                                            />
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="outlined" href="https://www.facebook.com/" size="small">
-                                                            <img
-                                                                src={facebookBtn}
-                                                                style={{ width: "30px", height: "30px" }}
-                                                                alt="title"
-                                                                loading="lazy"
-                                                            />
-                                                        </Button>
-                                                    </Grid>
+                                                <Grid item xs={4}>
+                                                    <Button variant="outlined" href="https://www.apple.com/" size="small">
+                                                        <img
+                                                            src={appleBtn}
+                                                            style={{ width: "30px", height: "30px" }}
+                                                            // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                            alt="title"
+                                                            loading="lazy"
+                                                        />
+                                                    </Button>
                                                 </Grid>
-                                                <Grid container justifyContent="flex-center" style={{ textAlign: "center" }} sx={{ mt: 3, mb: 2 }}>
-                                                    <Grid item xs={12}>
-                                                        Don't have an account?
+                                                <Grid item xs={4}>
+                                                    <Button variant="outlined" href="https://www.facebook.com/" size="small">
+                                                        <img
+                                                            src={facebookBtn}
+                                                            style={{ width: "30px", height: "30px" }}
+                                                            alt="title"
+                                                            loading="lazy"
+                                                        />
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container justifyContent="flex-center" style={{ textAlign: "center" }} sx={{ mt: 3, mb: 2 }}>
+                                                <Grid item xs={12}>
+                                                    Don't have an account?
                                         </Grid>
-                                                    <Grid item xs={12}>
+                                                <Grid item xs={12}>
 
-                                                        <Link href="/register" variant="body2" style={{ textDecoration: "none", color: "red" }}>
-                                                            Sign up with
+                                                    <Link href="/register" variant="body2" style={{ textDecoration: "none", color: "red" }}>
+                                                        Sign up with
                                             </Link>
-                                                        <Box display="flex" justifyContent="center">
+                                                    <Box display="flex" justifyContent="center">
 
-                                                            <Divider sx={{ width: "30%", }} />
-                                                        </Box>
-                                                    </Grid>
+                                                        <Divider sx={{ width: "30%", }} />
+                                                    </Box>
                                                 </Grid>
-                                            </Box>
+                                            </Grid>
                                         </Box>
-                                    </Container>
+                                    </Box>
+                                </Container>
 
-                                </ThemeProvider>
-                                <Divider />
-                            </Card>
+                            </ThemeProvider>
+                            <Divider />
+
                         </Grid>
                         <Grid item xs={12} md={4}>
 
@@ -280,7 +303,7 @@ export default function SignUp() {
                                                 marginTop: 3,
                                                 display: 'flex',
                                                 flexDirection: 'column',
-                                                alignItems: 'center',
+                                                alignItems: 'left',
                                             }}
                                         >
                                             <Typography component="h1" variant="h5">
@@ -299,31 +322,42 @@ export default function SignUp() {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid container spacing={2} sx={{ mt: 2 }} textAlign={"center"}>
-                                                    <Grid item xs={4}>
+                                                    <Grid item xs={3}>
                                                         <Button variant="outlined" href="https://www.google.com/" size="small">
                                                             <img
-                                                                src={googleBtn}
-                                                                style={{ width: "30px", height: "30px" }}
+                                                                src={visa}
+                                                                style={{ width: "50px", height: "30px" }}
                                                                 alt="title"
                                                                 loading="lazy"
                                                             />
                                                         </Button>
                                                     </Grid>
-                                                    <Grid item xs={4}>
+                                                    <Grid item xs={3}>
                                                         <Button variant="outlined" href="https://www.instagram.com/" size="small">
                                                             <img
-                                                                src={instagramBtn}
-                                                                style={{ width: "30px", height: "30px" }}
+                                                                src={discover}
+                                                                style={{ width: "50px", height: "30px" }}
                                                                 alt="title"
                                                                 loading="lazy"
                                                             />
                                                         </Button>
                                                     </Grid>
-                                                    <Grid item xs={4}>
+                                                    <Grid item xs={3}>
+                                                        <Button variant="outlined"
+                                                            href="https://www.facebook.com/" size="small">
+                                                            <img
+                                                                src={maestro}
+                                                                style={{ width: "50px", height: "30px" }}
+                                                                alt="title"
+                                                                loading="lazy"
+                                                            />
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={3}>
                                                         <Button variant="outlined" href="https://www.facebook.com/" size="small">
                                                             <img
-                                                                src={facebookBtn}
-                                                                style={{ width: "30px", height: "30px" }}
+                                                                src={master}
+                                                                style={{ width: "50px", height: "30px" }}
                                                                 alt="title"
                                                                 loading="lazy"
                                                             />
@@ -564,7 +598,9 @@ export default function SignUp() {
                                 </ThemeProvider>
                             </Stack>
                         </Grid>
-
+                        <Grid item xs={12} sx={{ margin: "auto" }} display={"flex"} justifyContent={"center"}>
+                            <Button onClick={handleOrder} variant="contained">Submit Order</Button>
+                        </Grid>
                     </Grid>
 
 
