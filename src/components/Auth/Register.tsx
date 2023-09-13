@@ -30,32 +30,39 @@ import facebookBtn from '../../Assets/facebook_btn.png';
 import instagramBtn from '../../Assets/instagram_btn.png';
 import googleBtn from '../../Assets/google_btn.png';
 import appleBtn from '../../Assets/apple_btn.png';
-import { useAppDispatch } from '../../redux-functionality';
+import { RootState, useAppDispatch } from '../../redux-functionality';
 import UserInfo from "../../types/redux/Auth"
 import { addToUser, userSignUp } from '../../redux-functionality/slices/authSlice';
 import { useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 const defaultTheme = createTheme();
 
-// const auth = getAuth();
-// createUserWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//         // Signed in 
-//         const user = userCredential.user;
-//         // ...
-//     })
-//     .catch((error) => {
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         // ..
-//     });
-
 export default function SignUp() {
+
+    const navigate = useNavigate();
     const [userInfo, setUserInfo] = React.useState({ userName: "", userEmail: "", userPassword: "", userGender: "" });
     const [userBirth, setUserBirth] = React.useState<Dayjs | null>(null);
     const [userSignUpStatus, setUserSignUpStatus] = React.useState("idle");
+    const registerError = useSelector((state: RootState) => state.auth.error);
+
+    useEffect(() => {
+        if (registerError) {
+            console.log("register error", registerError);
+            toast.error(registerError, { position: toast.POSITION.TOP_CENTER });
+        }
+        // switch (registerError) {
+        //     case "Firebase: Error (auth/email-already-in-use).":
+        //         toast.error("error", {
+        //             position: toast.POSITION.TOP_RIGHT
+        //         });
+        //         return;
+        // }
+    }, [registerError]);
 
     const dispatch = useAppDispatch();
 
@@ -75,6 +82,7 @@ export default function SignUp() {
     }
 
 
+
     const onChangeGender = (event: SelectChangeEvent) => {
         // setGender(event.target.value as string);
         setUserInfo({ ...userInfo, [event.target.name]: event.target.value as string })
@@ -90,10 +98,11 @@ export default function SignUp() {
                 setUserSignUpStatus("pending");
                 const newUser = { ...userInfo, userBirth: userBirth ? userBirth.toISOString() : "" }
 
-                await dispatch(userSignUp(newUser)).unwrap()
-                // setUserInfo({ userName: "", userEmail: "", userPassword: "", userGender: "" })
-                // setUserBirth(null);
-                // console.log("sign up success!")
+                await dispatch(userSignUp(newUser)).unwrap();
+
+                toast.success("sign up is success!", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
             } catch (error) {
                 console.error("Failed to sign up the user", error)
             } finally {
@@ -107,6 +116,8 @@ export default function SignUp() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+
+            <ToastContainer />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

@@ -16,28 +16,12 @@ import { persistor, store } from './store';
 import { Provider, useDispatch } from 'react-redux';
 import Payment from "./components/Payment/payment";
 
-
-{/* <Route path="/item">
-    <Route path="/item/men">
-        <Route path=":id" element={<ItemView />} />
-    </Route>
-    <Route path="/item/women">
-        <Route path=":id" element={<ItemView />} />
-    </Route>
-    <Route path="/item/kids">
-        <Route path=":id" element={<ItemView />} />
-    </Route>
-    <Route path="/item/featured">
-        <Route path=":id" element={<ItemView />} />
-    </Route>
-</Route> */}
-
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Payment />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />

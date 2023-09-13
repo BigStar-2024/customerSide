@@ -51,7 +51,11 @@ import Facebook from '../../Assets/icons/facebook.svg';
 import AnimateButton from '../Other/AnimateButton';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Stack } from '@mui/material';
-import { useAppDispatch } from '../../redux-functionality';
+import { RootState, useAppDispatch } from '../../redux-functionality';
+import { userLogin } from '../../redux-functionality/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { ToastContainer, toast } from 'react-toastify';
 
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -87,11 +91,29 @@ export default function SignUp() {
         },
     }));
 
-    const [password, setPassword] = React.useState("");
-    const [email, setEmail] = React.useState("");
+    // const [password, setPassword] = React.useState("");
+    // const [email, setEmail] = React.useState("");
+    // const loginInfo = { email: "", password: "" };
+
+    // const loginSuccess = useSelector((state: RootState) => state.auth.currentUser);
+
+    const [loginInfo, setLoginInfo] = React.useState({ email: "", password: "" })
     const [showPassword, setShowPassword] = React.useState(false);
-    const [userLogin, setUserLogin] = React.useState("idle");
-    const canSave = [email, password].every(Boolean) && userLogin === "idle";
+    const [loginStatus, setLoginStatus] = React.useState("idle");
+    const canSave = [loginInfo.email, loginInfo.password].every(Boolean) && loginStatus === "idle";
+    // const [loginSuccess, setLoginSuccess] = React.useState()
+
+    const loginError = useSelector((state: RootState) => state.auth.error);
+
+    // React.useEffect(() => {
+
+    //     if (loginError) {
+    //         console.log("login error", loginError);
+    //         toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
+    //     }
+    // }, [loginError]);
+
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -100,29 +122,38 @@ export default function SignUp() {
         event.preventDefault();
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
 
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const handleLoginInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLoginInfo({
+            ...loginInfo,
+            [e.target.name]: e.target.value,
+        })
+    }
 
-
-    const handleLogin = () => async () => {
+    const handleLogin = async () => {
+        // console.log("idle------------------")
         if (canSave) {
             try {
-                setUserLogin("pending");
-                // dispatch()
+                setLoginStatus("pending");
+                // console.log("pending------------")
+                await dispatch(userLogin(loginInfo)).unwrap();
+                // console.log("success------------")
+                setLoginInfo({ email: "", password: "" });
+                toast.success("login success", { position: toast.POSITION.TOP_CENTER })
+                // navigate("/home")
             } catch (error) {
 
+            } finally {
+                setLoginStatus("idle");
             }
+        }
 
+        if (loginError) {
+            console.log("login error", loginError);
+            toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
         }
     }
 
@@ -140,6 +171,7 @@ export default function SignUp() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            <ToastContainer />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -159,7 +191,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Glad to see you, Again!
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -169,8 +201,8 @@ export default function SignUp() {
                                     label="Email"
                                     name="email"
                                     autoComplete="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={loginInfo.email}
+                                    onChange={handleLoginInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -193,8 +225,9 @@ export default function SignUp() {
                                             </InputAdornment>
                                         }
                                         label="Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        name="password"
+                                        value={loginInfo.password}
+                                        onChange={handleLoginInfo}
                                     />
                                 </FormControl>
                             </Grid>
@@ -210,10 +243,10 @@ export default function SignUp() {
                                 disableElevation
                                 fullWidth
                                 size="medium"
-                                type="submit"
                                 variant="contained"
                                 color="primary"
                                 onClick={handleLogin}
+                                disabled={!canSave}
                             >
                                 Login
                                 </Button>

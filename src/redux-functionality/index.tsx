@@ -7,9 +7,9 @@ import { useDispatch } from "react-redux";
 const store = configureStore({
     reducer: {
         // You are free to call the LHS what you like, but it must have a reducer on the RHS.
-        auth: authReducer,
-        cartCounter: cartReducer,
 
+        cartCounter: cartReducer,
+        auth: authReducer,
     },
 });
 
