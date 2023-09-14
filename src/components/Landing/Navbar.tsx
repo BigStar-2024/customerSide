@@ -4,7 +4,7 @@ import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import {
     AppBar, Toolbar, Box, Button, Link, Typography,
-    InputAdornment, InputLabel, OutlinedInput, Stack
+    InputAdornment, InputLabel, OutlinedInput, Stack, IconButton
 } from '@mui/material';
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -154,7 +154,7 @@ const Navbar: React.FC<MenuTabProps> = (props) => {
 
     const closeWaiter = () => {
         setOpenWaiter(false);
-        console.log("waiterProps", waiterProps);
+        // console.log("waiterProps", waiterProps);
         if (waiterProps.tableNumber) {
             setWaiterProps({ customerOption: 'waiter', tableNumber: "", comment: "" })
         }

@@ -55,8 +55,8 @@ const Track = () => {
                                     style={{ margin: "auto" }}
                                 >
                                     <Stepper activeStep={1} nonLinear orientation="vertical" alternativeLabel={false}>
-                                        {steps.map((label) => (
-                                            <Step key={label[0]}>
+                                        {steps.map((label, index) => (
+                                            <Step key={index}>
                                                 <StepLabel>
                                                     <Typography variant='h6'>
                                                         {label[0]}
@@ -107,9 +107,9 @@ const Track = () => {
 
                                         </Stack>
                                         <Stack>
-                                            {orderItems.map((orderItem) => (
+                                            {orderItems.map((orderItem, index) => (
 
-                                                <Grid container spacing={1}>
+                                                <Grid key={index} container spacing={1}>
                                                     <Grid xs={2}>
                                                         <img
                                                             src={`${orderItem.foodImg}?w=161&fit=crop&auto=format`}

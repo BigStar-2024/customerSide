@@ -82,6 +82,7 @@ function SwipeableTextMobileStepper() {
                                 }}
                                 src={step.imgPath}
                                 alt={step.label}
+                                key={index}
                             />
                         ) : null}
                     </div>

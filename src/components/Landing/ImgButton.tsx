@@ -97,10 +97,10 @@ const ImgButton: React.FC<ImgProps> = (props) => {
 
     return (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', maxHeight: 100, maxWidth: 100, width: '100%' }}>
-            {images.map((image) => (
+            {images.map((image, index) => (
                 <ImageButton
                     focusRipple
-                    key={image.title}
+                    key={index}
                     style={{
                         width: image.width,
                         height: "100px"

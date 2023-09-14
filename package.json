@@ -74,5 +74,17 @@
     "@types/react-swipeable-views": "^0.13.2",
     "@types/react-swipeable-views-utils": "^0.13.4",
     "@types/uuid": "^9.0.3"
-  }
+  },
+  "description": "This  website has a clean and modern design with a simple color scheme and easy-to-read fonts, making it user-friendly and visually appealing. The landing page provides a simple and effective interface for users to browse and order food items from the restaurant.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brunom8218/customerSide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brunom8218/customerSide/issues"
+  },
+  "homepage": "https://github.com/Brunom8218/customerSide#readme"
 }

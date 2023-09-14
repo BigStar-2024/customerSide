@@ -39,8 +39,8 @@ export const userSignUp = createAsyncThunk("auth/userSignUp", async (userInfo: U
         .catch((error) => {
             errorCode = error.code;
             errorMessage = error.message;
-            console.log("userCredentialCode: ", errorCode);
-            console.log("userCredentialMessage: ", errorMessage);
+            // console.log("userCredentialCode: ", errorCode);
+            // console.log("userCredentialMessage: ", errorMessage);
             switch (errorMessage) {
                 case "Firebase: Error (auth/email-already-in-use).":
                     throw new Error("email is used already!");
@@ -69,7 +69,6 @@ export const userLogin = createAsyncThunk("auth/userLogin", async (loginInfo: { 
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log("userlogin error", errorMessage);
             switch (errorMessage) {
                 case "Firebase: Error (auth/user-not-found).":
                     throw new Error("user not found. please sign up!");
@@ -99,7 +98,7 @@ export const userSlice = createSlice({
             state.userInfo.userPassword = userPassword;
             state.userInfo.userGender = userGender;
             state.userInfo.userBirth = userBirth;
-            console.log("newUser", action);
+            // console.log("newUser", action);
         },
     },
     extraReducers(builder) {
@@ -109,7 +108,7 @@ export const userSlice = createSlice({
             })
             .addCase(userSignUp.rejected, (state, action) => {
                 if (action.error.message) {
-                    console.log("userSignUpRejected: ", action.error.message);
+                    // console.log("userSignUpRejected: ", action.error.message);
                     // toast.error(action.error.message)
                     state.error = action.error.message;
                 }

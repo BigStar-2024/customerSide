@@ -95,7 +95,7 @@ interface CartType {
 }
 
 
-const CartComponent: React.FC<CartType> = (props) => {
+const ItemsCart: React.FC<CartType> = (props) => {
 
     const cartShow = props.show;
 
@@ -157,4 +157,4 @@ const CartComponent: React.FC<CartType> = (props) => {
     )
 }
 
-export default CartComponent;
+export default ItemsCart;

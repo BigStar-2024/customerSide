@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Carousel from './Carousel'
-import Add from '@mui/icons-material/Add'
+// import Add from '@mui/icons-material/Add'
 import { Grid, Stack, IconButton, Typography, Divider, Container } from '@mui/material';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -11,8 +11,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import RecmCarousel from './RecmCarousel';
 import Chip from '@mui/material/Chip';
-import makeStyles from "@mui/material"
-import { foodData } from '../../helpers/foodData';
+// import makeStyles from "@mui/material"
 import { useLocation } from 'react-router-dom';
 // import makeStyles from '@mui/styles/makeStyles';
 
@@ -27,26 +26,23 @@ import CartIcon from "../Landing/CartIcon"
 
 const AddItem = () => {
 
-
-
     const location = useLocation();
-
     const foodState: InitialState = location.state;
-
-    // useEffect(() => {
-    //     console.log("foodStateReceive", foodState);
-    // })
-
     const dispatch = useDispatch();
 
 
     const [addNumber, setAddNumber] = useState(foodState.addedNumber);
-
     const [value, setValue] = useState('cheeseB');
+    const [startViewTime, setStartViewTime] = useState(new Date());
+    // const [endViewTime, setEndViewTime] = useState<Date>();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     };
+
+    useEffect(() => {
+        setAddNumber(foodState.addedNumber);
+    }, [foodState.addedNumber]);
 
     const minuPro = () => {
         if (addNumber == 0)
@@ -67,11 +63,8 @@ const AddItem = () => {
         if (addNumber !== 0) {
             foodState.addedNumber = addNumber;
             dispatch(addToCart(foodState));
-
         }
-        // dispatch(addItem(value));
     }
-
 
     const itemsInCart = useSelector((state: RootState) => {
         if (state && state.cartCounter && !!state.cartCounter.cartItems) {
@@ -82,10 +75,46 @@ const AddItem = () => {
     });
 
 
+    useEffect(() => {
+        // This function will be called when the component mounts
+        // const mountedTime: Date = new Date();
+        console.log('Component mounted');
+        setStartViewTime(new Date());
+
+        // This function will be called when the component unmounts
+        return () => {
+            // const unmountedTime: Date = new Date();
+
+            // setEndViewTime(new Date());
+            const endViewTime = new Date();
+            console.log('Component unmounted', calculateTimeDifference(endViewTime));
+        };
+    }, []);
+
+    const calculateTimeDifference = (endViewTime: Date) => {
+        console.log(`start time: ${startViewTime} endTime: ${endViewTime}`);
+        if (startViewTime && endViewTime) {
+            const difference = endViewTime.getTime() - startViewTime.getTime();
+            const seconds = Math.floor(difference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+
+            return `${hours} hours, ${minutes % 60} minutes, ${seconds % 60} seconds`;
+        }
+        return 'N/A';
+    };
+
+    useEffect(() => {
+        // This function will be called whenever the lifetimeCount state changes
+        console.log('lifetimeCount changed:');
+    });
+
+
+
     return (
         <>
             <Container sx={{ marginTop: '100px' }}>
-                <Grid container xs={12} style={{ maxHeight: "", maxWidth: "1200px" }} spacing={5} >
+                <Grid container style={{ maxHeight: "", maxWidth: "1200px" }} spacing={5} >
                     <Grid item container xs={12} spacing={10} >
                         <Grid item xs={12} md={7}>
                             <Carousel />
@@ -201,123 +230,3 @@ const AddItem = () => {
 }
 
 export default AddItem;
-
-
-// import * as React from 'react'
-// import Card from '@mui/material/Card'
-// import CardMedia from '@mui/material/CardMedia'
-// import CardContent from '@mui/material/CardContent'
-// import CardActions from '@mui/material/CardActions'
-// import Typography from '@mui/material/Typography'
-// import BatteryCharging80OutlinedIcon from '@mui/icons-material/BatteryCharging80Outlined'
-// import landingImage from '../../Assets/food1.png'
-// import foodImage from '../../Assets/food2.png'
-// import { Box, Container, IconButton, ThemeProvider } from '@mui/material'
-// import { useTheme } from '@mui/material/styles'
-// import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded'
-// import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
-// import Carousel from "./Carousel"
-
-// export default function MobileCP() {
-//     const theme = useTheme()
-
-//     return (
-//         <ThemeProvider theme={theme}>
-//             <Container>
-//                 <Carousel />
-//             </Container>
-//             <Card sx={{ marginBottom: '30px' }}>
-//                 <CardContent sx={{ height: '45px' }}>
-//                     <Box display={'flex'} justifyContent={'space-between'}>
-//                         <Typography sx={{ fontSize: '15px' }}>06:22</Typography>
-//                         <BatteryCharging80OutlinedIcon sx={{ height: '20px' }} />
-//                     </Box>
-//                 </CardContent>
-//                 {/* <CardMedia
-//                     component='img'
-//                     height='300'
-//                     image={landingImage}
-//                     alt='MenuX'
-//                 /> */}
-
-//                 <CardContent>
-//                     <Box
-//                         display={'flex'}
-//                         justifyContent={'space-between'}
-//                         marginBottom={'30px'}
-//                         marginTop={'20px'}
-//                     >
-//                         <Typography variant='h4'>Meat Lovers</Typography>
-//                         <Typography variant='h4'>$29.50</Typography>
-//                     </Box>
-//                     <Box textAlign={'left'}>
-//                         <Typography variant='h6'>Description</Typography>
-//                     </Box>
-//                     <Box marginBottom={'30px'}>
-//                         <Typography
-//                             variant='body2'
-//                             textAlign={'left'}
-//                             color='text.secondary'
-//                         >
-//                             Meat Lovers is a pizza culinary which contains sliced beef sausage
-//                             toppings, minced beef, beef burger, chicken sausage, tomato,
-//                             cheese, cucumber. With a warm pizza will warm your days.
-//             </Typography>
-//                     </Box>
-//                     <Box
-//                         textAlign={'left'}
-//                         display={'flex'}
-//                         justifyContent={'space-between'}
-//                         marginBottom={'20px'}
-//                     >
-//                         <Typography variant='h6'>Recommended Products</Typography>
-//                         <Box>
-//                             <IconButton>
-//                                 <KeyboardArrowLeftRoundedIcon />
-//                             </IconButton>
-//                             <IconButton>
-//                                 <KeyboardArrowRightRoundedIcon />
-//                             </IconButton>
-//                         </Box>
-//                     </Box>
-//                     <Box>
-//                         <Card sx={{ display: 'flex' }}>
-//                             <CardContent
-//                                 sx={{
-//                                     width: '100%',
-//                                     display: 'flex',
-//                                     flexDirection: 'column',
-//                                     justifyContent: 'space-between'
-//                                 }}
-//                             >
-//                                 <Box>
-//                                     <Typography textAlign={'left'} sx={{ fontWeight: 'bold' }}>
-//                                         Fries with Leaves Dish
-//                   </Typography>
-//                                     <Typography textAlign={'left'}>
-//                                         Entree Ingredient Information
-//                   </Typography>
-//                                 </Box>
-//                                 <Box
-//                                     display={'flex'}
-//                                     justifyContent={'space-between'}
-//                                     bottom={'auto'}
-//                                 >
-//                                     <Typography >Price</Typography>
-//                                     <Typography >$6.57</Typography>
-//                                 </Box>
-//                             </CardContent>
-//                             <CardMedia
-//                                 component='img'
-//                                 sx={{ width: '150px', height: '150px' }}
-//                                 image={foodImage}
-//                                 alt='MenuX'
-//                             />
-//                         </Card>
-//                     </Box>
-//                 </CardContent>
-//                 <CardActions disableSpacing></CardActions>
-//             </Card>
-//         </ThemeProvider>
-//     )
-// }

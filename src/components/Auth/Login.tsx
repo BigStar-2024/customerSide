@@ -94,11 +94,6 @@ export default function SignUp() {
         },
     }));
 
-    // const [password, setPassword] = React.useState("");
-    // const [email, setEmail] = React.useState("");
-    // const loginInfo = { email: "", password: "" };
-
-    // const loginSuccess = useSelector((state: RootState) => state.auth.currentUser);
 
     const [loginInfo, setLoginInfo] = React.useState({ email: "", password: "" })
     const [showPassword, setShowPassword] = React.useState(false);
@@ -106,7 +101,7 @@ export default function SignUp() {
     const canSave = [loginInfo.email, loginInfo.password].every(Boolean) && loginStatus === "idle";
     // const [loginSuccess, setLoginSuccess] = React.useState()
 
-    let loginError = useSelector((state: RootState) => state.auth.error);
+    let loginError: any = useSelector((state: RootState) => state.auth.error);
 
 
     const navigate = useNavigate();
@@ -135,24 +130,18 @@ export default function SignUp() {
     }
     React.useEffect(() => {
         if (loginError) {
-            console.log("login error", loginError);
+            // console.log("login error", loginError);
             toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
         }
     }, [loginError])
 
     const handleLogin = async () => {
-        // console.log("idle------------------")
         if (canSave) {
             try {
                 setLoginStatus("pending");
-                // console.log("pending------------")
                 await dispatch(userLogin(loginInfo)).unwrap();
-
-
-                // console.log("success------------")
                 setLoginInfo({ email: "", password: "" });
                 loginSuccess();
-
             } catch (error) {
 
             } finally {

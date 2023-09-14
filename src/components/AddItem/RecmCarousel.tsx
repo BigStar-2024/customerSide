@@ -126,6 +126,7 @@ function RecmCarousel() {
                                     <div key={step.label[0]}>
                                         {Math.abs(activeStep - index) <= 2 ? (
                                             <Box
+                                                key={index}
                                                 component="img"
                                                 sx={{
                                                     display: 'block',
@@ -135,6 +136,7 @@ function RecmCarousel() {
                                                 }}
                                                 src={step.imgPath}
                                                 alt={step.label[0]}
+
                                             />
                                         ) : null}
                                     </div>

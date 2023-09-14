@@ -11,7 +11,6 @@ import Home from './components/Landing/Home';
 import Navbar from "./components/Landing/Navbar";
 import AddItem from './components/AddItem/AddItem';
 
-import { persistor, store } from './store';
 import Track from "./components/Tracking/Track"
 import { Provider, useDispatch } from 'react-redux';
 import Payment from "./components/Payment/payment";

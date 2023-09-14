@@ -6,7 +6,7 @@ import food4 from '../Assets/food4.png'
 import food5 from '../Assets/food5.png'
 import food6 from '../Assets/food6.png'
 
-export const foodData = [
+export const foodDatas = [
     { foodID: "1", calories: "2", categoryID: "1", description: "Entree Ingredient Information", estimatedTime: "", images: [food1, "", ""], label: "", menuID: "1", name: "food1", order: "0", recommendedProducts: ["1", "3", "5"], restaurantID: "1", prices: "$13", itemSize: "3", videos: ["", "", ""], views: "0" },
     { foodID: "2", calories: "2", categoryID: "1", description: "Entree Ingredient Information", estimatedTime: "", images: ["", "", ""], label: "", menuID: "1", name: "food2", order: "1", recommendedProducts: ["3", "2", "8"], restaurantID: "1", prices: "$14", itemSize: "3", videos: ["", "", ""], views: "0" },
     { foodID: "3", calories: "2", categoryID: "1", description: "Entree Ingredient Information", estimatedTime: "", images: [food3, "", ""], label: "", menuID: "1", name: "food3", order: "2", recommendedProducts: ["7", "3", "1"], restaurantID: "1", prices: "$7", itemSize: "3", videos: ["", "", ""], views: "0" },

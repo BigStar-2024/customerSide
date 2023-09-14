@@ -70,11 +70,7 @@ const Home = () => {
         // }
     }
 
-    // useEffect(() => {
-    //     categoryRefs.current = Array(sortedCategories.length)
-    //         .fill(null)
-    //         .map(() => useRef<HTMLDivElement>(null));
-    // }, [sortedCategories]);
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -93,7 +89,7 @@ const Home = () => {
     const closeCart = () => {
         setEmptyCartShow(false);
         setItemsCartShow(false);
-        console.log("closeCart");
+        // console.log("closeCart");
     }
 
 
@@ -120,7 +116,7 @@ const Home = () => {
                             }}
                             onClick={() => openCart(itemsInCart)}
                         >
-                            <CartIcon cartNumber={itemsInCart} />
+                            <CartIcon cartNumber={itemsInCart} key={"OK"} />
                         </div>
                         <div className="Navbar">
                             <Navbar CategoryClick={handleCategory} />
@@ -128,17 +124,13 @@ const Home = () => {
                         <div className="home-food-content">
                             {
                                 sortedCategories.map((category, index) => {
-                                    // const newCategoryRef = useRef<HTMLDivElement>(null);
-                                    // categoryRefs.current[index] = newCategoryRef;
+
                                     return (
-                                        <>
-                                            {/* <div ref={newCategoryRef} > */}
-                                            <Category categoryData={category} key={index} />
-                                            {/* </div> */}
-                                        </>
+                                        <React.Fragment key={category.categoryID}>
+                                            <Category categoryData={category} />
+                                        </React.Fragment>
                                     )
                                 })
-
                             }
                             <div className="home-foot">
                                 <Footer />

@@ -25,14 +25,13 @@ function CustomTabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 0 }}>
-                    <Typography>{children}</Typography>
+                <Box sx={{ p: 3 }}>
+                    <Typography component="div">{children}</Typography>
                 </Box>
             )}
         </div>
     );
 }
-
 
 function a11yProps(index: number) {
     return {

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FoodItems from './FoodItems';
-import { foodData } from "../../helpers/foodData"
+import { foodDatas } from "../../helpers/foodData"
 
 import food1 from '../../Assets/food1.png'
 import food2 from '../../Assets/food2.png'
@@ -39,7 +39,7 @@ interface CategoryProps {
 const CategoryComponent: React.FC<CategoryProps> = (props) => {
 
     const category = props.categoryData;
-    const foods = foodData;
+    const foods = foodDatas;
 
     const foodItems = foods.filter((food) => category.categoryID == food.categoryID);
 
@@ -58,7 +58,7 @@ const CategoryComponent: React.FC<CategoryProps> = (props) => {
                     sortFoods.map((foodItem, index) => {
 
                         return (
-                            <Grid item xs={12} md={6} xl={3}>
+                            <Grid item xs={12} md={6} xl={3} key={index}>
                                 <FoodItems foodData={foodItem} key={index} categoryName={category.categoryName} />
                             </Grid>
                         )

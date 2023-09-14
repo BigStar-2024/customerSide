@@ -122,7 +122,7 @@ const CartComponent: React.FC<CartType> = (props) => {
 
     const currentEmail = useSelector((state: RootState) => state.auth.currentUser);
     const handlePayment = () => {
-        console.log("currentEmail: ", currentEmail);
+        // console.log("currentEmail: ", currentEmail);
         navigate("/payment", { state: currentEmail });
     }
 
@@ -145,7 +145,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                 >
                     {
                         items.map((item, index) =>
-                            <>
+                            <div key={index}>
                                 <Card sx={{
                                     display: 'flex', width: 400, minWidth: 275,
                                     ':hover': {
@@ -188,7 +188,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                                     </Box>
                                 </Card>
                                 <Divider />
-                            </>
+                            </div>
                         )
                     }
                     <Grid container spacing={4}>

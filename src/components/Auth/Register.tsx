@@ -52,16 +52,9 @@ export default function SignUp() {
 
     useEffect(() => {
         if (registerError) {
-            console.log("register error", registerError);
+
             toast.error(registerError, { position: toast.POSITION.TOP_CENTER });
         }
-        // switch (registerError) {
-        //     case "Firebase: Error (auth/email-already-in-use).":
-        //         toast.error("error", {
-        //             position: toast.POSITION.TOP_RIGHT
-        //         });
-        //         return;
-        // }
     }, [registerError]);
 
     const dispatch = useAppDispatch();
@@ -100,9 +93,6 @@ export default function SignUp() {
 
                 await dispatch(userSignUp(newUser)).unwrap();
 
-                toast.success("sign up is success!", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
             } catch (error) {
                 console.error("Failed to sign up the user", error)
             } finally {
