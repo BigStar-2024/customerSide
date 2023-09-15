@@ -3,9 +3,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 
-
-// Use AnimatePresence in your code
-import Checkbox from '@mui/material/Checkbox';
 import { Link, Card } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';

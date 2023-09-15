@@ -37,6 +37,10 @@ function App() {
     );
 }
 
+// render={() =>
+//             currentUser ? <OrdersPage /> : <SignInAndSignUpPage />
+//           }
+
 export default App;
 
 

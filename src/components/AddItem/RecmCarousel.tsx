@@ -66,7 +66,7 @@ function RecmCarousel() {
                             }}
                         >
                             <Box>
-                                <Typography textAlign={'left'} variant='h6' >
+                                <Typography textAlign={'left'} variant='h6' noWrap >
                                     Recommended Products
                                 </Typography>
                             </Box>

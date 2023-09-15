@@ -16,6 +16,8 @@ import food2 from "../../Assets/food2.png"
 import food3 from "../../Assets/food3.png"
 import food4 from "../../Assets/food4.png"
 import food5 from "../../Assets/food5.png"
+import { Fab, responsiveFontSizes } from '@mui/material';
+
 // import food6 from "../../Assets/food"
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -61,7 +63,7 @@ function SwipeableTextMobileStepper() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} position={"relative"}>
 
             <AutoPlaySwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -88,35 +90,19 @@ function SwipeableTextMobileStepper() {
                     </div>
                 ))}
             </AutoPlaySwipeableViews>
-            <MobileStepper
-                steps={maxSteps}
-                position="static"
-                activeStep={activeStep}
-                nextButton={
-                    <Button
-                        size="small"
-                        onClick={handleNext}
-                        disabled={activeStep === maxSteps - 1}
-                    >
+            <div style={{
+                position: "absolute", right: 10, bottom: 10, opacity: 0.5
+            }}>
+                <Box sx={{ '& > :not(style)': { m: 1 } }}>
 
-                        {theme.direction === 'rtl' ? (
-                            <KeyboardArrowLeft />
-                        ) : (
-                                <KeyboardArrowRight />
-                            )}
-                    </Button>
-                }
-                backButton={
-                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                        {theme.direction === 'rtl' ? (
-                            <KeyboardArrowRight />
-                        ) : (
-                                <KeyboardArrowLeft />
-                            )}
-
-                    </Button>
-                }
-            />
+                    <Fab variant="extended" size="small" onClick={() => handleStepChange(1)} >
+                    </Fab>
+                    <Fab variant="extended" size="small" onClick={() => handleStepChange(2)} >
+                    </Fab>
+                    <Fab variant="extended" size="small" onClick={() => handleStepChange(3)} >
+                    </Fab>
+                </Box>
+            </div>
         </Box>
     );
 }

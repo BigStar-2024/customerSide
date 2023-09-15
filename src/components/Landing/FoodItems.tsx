@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Card } from "@mui/material"
+import { Box, Card, CardContent, CardMedia } from "@mui/material"
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import ImgButton from './ImgButton';
@@ -69,17 +69,17 @@ const FoodItems: React.FC<foodData> = (props) => {
     return (
 
         <Link to={{ pathname: `/item/${foodData.foodID}` }} state={foodState} style={{ textDecoration: "none" }}>
-            <Card
+            {/* <Card
                 sx={{
                     minWidth: 275,
                     ':hover': {
                         boxShadow: 20,
                     },
+                    p: 0
                 }}
             >
                 <Paper
                     sx={{
-                        p: 2,
                         margin: 'auto',
                         minHeight: 132,
                         maxWidth: 800,
@@ -89,7 +89,7 @@ const FoodItems: React.FC<foodData> = (props) => {
                     }}
                 >
                     <Grid container spacing={1}>
-                        <Grid item xs={9} sm container spacing={0}>
+                        <Grid item xs={9} sm container spacing={0} sx={{ m: 2 }}>
                             <Grid container item xs={12} spacing={2}>
                                 <Grid item xs={7}>
                                     <Typography gutterBottom variant="subtitle1" component="div" whiteSpace='pre-wrap'>
@@ -117,13 +117,7 @@ const FoodItems: React.FC<foodData> = (props) => {
                             foodData.images[0] ? (
                                 <>
                                     <Grid item xs={3}>
-                                        {/* <ButtonBase sx={{ width: 128, height: 128 }}> */}
-
-                                        <ImgButton ImgUrl={foodData.images[0]} ImgTitle="Order" ImgWidth="100%" />
-
-
-                                        {/* <Img alt="complex" src={foodImg} sx={{ width: 100, height: 100 }} /> */}
-                                        {/* </ButtonBase> */}
+                                        <img src={foodData.images[0]} alt="Website Logo" style={{ minHeight: "132px", minWidth: "98px" }} />
                                     </Grid>
                                 </>
                             ) : (<>
@@ -133,6 +127,43 @@ const FoodItems: React.FC<foodData> = (props) => {
 
                     </Grid>
                 </Paper>
+            </Card> */}
+            <Card sx={{
+                display: 'flex', maxWidth: "600px", height: "151px",
+                ':hover': {
+                    boxShadow: 20,
+                },
+            }}>
+                <Grid container>
+                    <Grid item xs={8}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <CardContent sx={{ flex: '1 0 auto' }}>
+                                <Typography component="div" variant="h5">
+                                    {foodData.name}
+                                </Typography>
+                                <Typography variant="subtitle1" color="text.secondary" component="div">
+                                    {foodData.description}
+                                </Typography>
+                            </CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                                <Typography variant="subtitle1" color="error" component="div">
+                                    {foodData.prices}
+                                </Typography>
+                            </Box>
+                        </Box>
+
+                    </Grid>
+                    <Grid item xs={4} >
+                        {foodData.images[0] ? (
+                            <CardMedia
+                                component="img"
+                                sx={{ width: 151 }}
+                                image={foodData.images[0]}
+                                alt=""
+                            />) : (null)}
+                    </Grid>
+                </Grid>
+
             </Card>
         </Link>
     );

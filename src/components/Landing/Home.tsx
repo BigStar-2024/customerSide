@@ -99,47 +99,44 @@ const Home = () => {
 
     return (
         <div className="home-container">
-            {isLoading ? (
-                <Loading />
-            ) : (
-                    <>
-                        <div
-                            style={{
-                                position: 'fixed',
-                                top: '50%',
-                                right: '0',
-                                transform: 'translate(-50%, -50%)',
-                                zIndex: 999,
-                                backgroundColor: 'gray',
-                                borderRadius: '50%',
-                                padding: '5px',
-                            }}
-                            onClick={() => openCart(itemsInCart)}
-                        >
-                            <CartIcon cartNumber={itemsInCart} key={"OK"} />
-                        </div>
-                        <div className="Navbar">
-                            <Navbar CategoryClick={handleCategory} />
-                        </div>
-                        <div className="home-food-content">
-                            {
-                                sortedCategories.map((category, index) => {
+            {isLoading && <Loading />}
+            <div className={!isLoading ? "home-content" : "home-content hidden"}>
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: '90%',
+                        right: '0',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 999,
+                        backgroundColor: 'gray',
+                        borderRadius: '50%',
+                        padding: '5px',
+                    }}
+                    onClick={() => openCart(itemsInCart)}
+                >
+                    <CartIcon cartNumber={itemsInCart} key={"OK"} />
+                </div>
+                <div className="Navbar">
+                    <Navbar CategoryClick={handleCategory} />
+                </div>
+                <div className="home-food-content">
+                    {
+                        sortedCategories.map((category, index) => {
 
-                                    return (
-                                        <React.Fragment key={category.categoryID}>
-                                            <Category categoryData={category} />
-                                        </React.Fragment>
-                                    )
-                                })
-                            }
-                            <div className="home-foot">
-                                <Footer />
-                            </div>
-                        </div>
-                        <EmptyCart show={emptyCartShow} closeCart={closeCart} />
-                        <ItemsCart show={itemsCartShow} closeCart={closeCart} />
-                    </>
-                )}
+                            return (
+                                <React.Fragment key={category.categoryID}>
+                                    <Category categoryData={category} />
+                                </React.Fragment>
+                            )
+                        })
+                    }
+                    <div className="home-foot">
+                        <Footer />
+                    </div>
+                </div>
+                <EmptyCart show={emptyCartShow} closeCart={closeCart} />
+                <ItemsCart show={itemsCartShow} closeCart={closeCart} />
+            </div>
         </div>
     );
 }

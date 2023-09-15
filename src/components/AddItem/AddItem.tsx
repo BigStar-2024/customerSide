@@ -22,7 +22,7 @@ import { addToCart } from '../../redux-functionality/slices/cartSlice';
 import { InitialState } from '../../types/redux/CartCounter';
 import { Link } from 'react-router-dom';
 import CartIcon from "../Landing/CartIcon"
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const AddItem = () => {
 
@@ -31,7 +31,7 @@ const AddItem = () => {
     const dispatch = useDispatch();
 
 
-    const [addNumber, setAddNumber] = useState(foodState.addedNumber);
+    const [addNumber, setAddNumber] = useState(foodState.addedNumber ? foodState.addedNumber : 1);
     const [value, setValue] = useState('cheeseB');
     const [startViewTime, setStartViewTime] = useState(new Date());
     // const [endViewTime, setEndViewTime] = useState<Date>();
@@ -40,9 +40,9 @@ const AddItem = () => {
         setValue((event.target as HTMLInputElement).value);
     };
 
-    useEffect(() => {
-        setAddNumber(foodState.addedNumber);
-    }, [foodState.addedNumber]);
+    // useEffect(() => {
+    //     setAddNumber(foodState.addedNumber);
+    // }, [foodState.addedNumber]);
 
     const minuPro = () => {
         if (addNumber == 0)
@@ -127,18 +127,26 @@ const AddItem = () => {
                                         {foodState.foodName}
                                     </Typography>
                                 </Grid>
-                                <Grid item container xs={6} justifyContent={"center"} >
-                                    <Stack direction={'row'}>
-                                        <IconButton onClick={minuPro}>
-                                            <RemoveCircleOutlineIcon />
-                                        </IconButton>
-                                        <Typography gutterBottom variant="h6" component="div" whiteSpace='pre-wrap' marginBottom={"0px"}>
-                                            {addNumber}
-                                        </Typography>
-                                        <IconButton onClick={plusPro}>
-                                            <ControlPointIcon />
-                                        </IconButton>
-                                    </Stack>
+                                <Grid item container xs={6} justifyContent={"center"}  >
+                                    <div style={{ width: '100px' }}>
+                                        <Stack direction={'row'} display={"flex"} alignItems={"center"}>
+                                            <div>
+
+                                                <IconButton onClick={minuPro} disableRipple>
+                                                    <RemoveCircleOutlineIcon />
+                                                </IconButton>
+                                            </div>
+
+                                            <Typography style={{ minWidth: '30px' }} gutterBottom variant="h6" component="div" whiteSpace='pre-wrap' marginBottom={"0"} textAlign={"center"} >
+                                                {addNumber}
+                                            </Typography>
+                                            <div>
+                                                <IconButton onClick={plusPro} color="error" disableRipple>
+                                                    <AddCircleIcon />
+                                                </IconButton>
+                                            </div>
+                                        </Stack>
+                                    </div>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ textAlign: "left", }}>
@@ -169,7 +177,7 @@ const AddItem = () => {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={6} textAlign={"end"} >
-                                    <Chip label="required" color="error" />
+                                    <Chip label="required" color="error" sx={{ borderRadius: "8px" }} />
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
@@ -198,7 +206,6 @@ const AddItem = () => {
                                     borderRadius: '50%',
                                     padding: '5px',
                                 }}>
-
                                     <CartIcon cartNumber={itemsInCart} />
                                 </div>
                             </div>

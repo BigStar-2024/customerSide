@@ -95,7 +95,7 @@ export default function SignUp() {
     }));
 
 
-    const [loginInfo, setLoginInfo] = React.useState({ email: "", password: "" })
+    const [loginInfo, setLoginInfo] = React.useState({ email: "", password: "" });
     const [showPassword, setShowPassword] = React.useState(false);
     const [loginStatus, setLoginStatus] = React.useState("idle");
     const canSave = [loginInfo.email, loginInfo.password].every(Boolean) && loginStatus === "idle";
@@ -118,7 +118,6 @@ export default function SignUp() {
         event.preventDefault();
     };
 
-
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -128,6 +127,7 @@ export default function SignUp() {
             [e.target.name]: e.target.value,
         })
     }
+
     React.useEffect(() => {
         if (loginError) {
             // console.log("login error", loginError);
@@ -194,13 +194,12 @@ export default function SignUp() {
                                     id="email"
                                     label="Email"
                                     name="email"
-                                    autoComplete="email"
+                                    // autoComplete="email"
                                     value={loginInfo.email}
                                     onChange={handleLoginInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-
                                 <FormControl sx={{ width: '40ch' }} variant="outlined">
                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                     <OutlinedInput

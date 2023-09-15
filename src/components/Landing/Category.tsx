@@ -44,8 +44,7 @@ const CategoryComponent: React.FC<CategoryProps> = (props) => {
     const foodItems = foods.filter((food) => category.categoryID == food.categoryID);
 
     const sortFoods = foodItems.sort((a: any, b: any) => a.order - b.order);
-    // console.log("sortFoods", sortFoods);
-    // console.log("asdfasdfasdfasdfasdf");
+
 
     return (
         <div className="food-menu">
