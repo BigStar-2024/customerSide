@@ -29,6 +29,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { InitialState } from "../../types/redux/CartCounter";
 import { useNavigate } from 'react-router-dom';
 import { current } from "@reduxjs/toolkit";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
 interface MenuTabProps {
@@ -175,16 +176,21 @@ const CartComponent: React.FC<CartType> = (props) => {
                                         </Box>
                                     </Box>
 
-                                    <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: "right", pl: 1, pb: 1 }}>
-                                        <IconButton onClick={() => minusPro(item.foodID)}>
-                                            <RemoveCircleOutlineIcon />
-                                        </IconButton>
-                                        <Typography variant="h6" color="text.secondary" component="div">
-                                            {item.addedNumber}
-                                        </Typography>
-                                        <IconButton onClick={() => plusPro(item.foodID)}>
-                                            <ControlPointIcon />
-                                        </IconButton>
+                                    <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: "center", pl: 1, pb: 1 }}>
+
+                                        <div style={{ width: '100px' }}>
+                                            <Stack direction={'row'} display={"flex"} alignItems={"center"}>
+                                                <IconButton onClick={() => minusPro(item.foodID)} sx={{ mr: "16px" }}>
+                                                    <RemoveCircleOutlineIcon />
+                                                </IconButton>
+                                                <Typography minWidth={"30px"} variant="h6" color="text.secondary" component="div">
+                                                    {item.addedNumber}
+                                                </Typography>
+                                                <IconButton onClick={() => plusPro(item.foodID)} color="error" disableRipple>
+                                                    <AddCircleIcon />
+                                                </IconButton>
+                                            </Stack>
+                                        </div>
                                     </Box>
                                 </Card>
                                 <Divider />

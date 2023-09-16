@@ -1,58 +1,26 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../Assets/Logo.svg";
-import { BsCart2 } from "react-icons/bs";
-import { HiOutlineBars3 } from "react-icons/hi2";
 import {
     AppBar, Toolbar, Box, Button, Link, Typography,
     InputAdornment, InputLabel, OutlinedInput, Stack, IconButton
 } from '@mui/material';
 
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 // import { ReactComponent as HelloIcon } from "../Assets/hello-icon.svg";
 import MenuX from "../../Assets/MenuX.svg";
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import CssBaseline from '@mui/material/CssBaseline';
 import StarIcon from '@mui/icons-material/StarBorder';
-import GlobalStyles from '@mui/material/GlobalStyles';
-import Container from '@mui/material/Container';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import brand2 from '../../Assets/brand2.png'
 import MenuCategory from './MenuCategory';
-import Popper, { PopperPlacementType } from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
-import Paper from '@mui/material/Paper';
-import PropTypes from 'prop-types';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
-import { blue } from '@mui/material/colors';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
 import TextField from '@mui/material/TextField';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import TableRestaurantOutlinedIcon from '@mui/icons-material/TableRestaurantOutlined';
 
 import { styled } from '@mui/material/styles';
@@ -62,6 +30,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import LanSelector from "./LanSelector"
 
 
 interface MenuTabProps {
@@ -289,14 +258,7 @@ const Navbar: React.FC<MenuTabProps> = (props) => {
                             </DialogContent>
                         </Dialog>
 
-                        <Link
-                            variant="button"
-                            color="text.primary"
-                            href="#"
-                            sx={{ my: 1, mx: 1.5 }}
-                        >
-                            Language
-                        </Link>
+                        <LanSelector />
 
 
                         <Button onClick={viewFeedback} variant="outlined" sx={{ my: 1, mx: 1.5 }}>

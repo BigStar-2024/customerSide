@@ -95,6 +95,8 @@ function SwipeableTextMobileStepper() {
             }}>
                 <Box sx={{ '& > :not(style)': { m: 1 } }}>
 
+                    <Fab variant="extended" size="small" onClick={() => handleStepChange(0)} >
+                    </Fab>
                     <Fab variant="extended" size="small" onClick={() => handleStepChange(1)} >
                     </Fab>
                     <Fab variant="extended" size="small" onClick={() => handleStepChange(2)} >
@@ -108,3 +110,8 @@ function SwipeableTextMobileStepper() {
 }
 
 export default SwipeableTextMobileStepper;
+
+
+
+
+

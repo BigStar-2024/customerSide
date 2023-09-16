@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as React from 'react';
 // import About from "./components/Login/About";
@@ -14,13 +15,14 @@ import AddItem from './components/AddItem/AddItem';
 import Track from "./components/Tracking/Track"
 import { Provider, useDispatch } from 'react-redux';
 import Payment from "./components/Payment/payment";
+// import Scroll from "./components/AddItem/SecondExample"
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />

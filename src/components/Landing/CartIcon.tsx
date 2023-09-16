@@ -29,8 +29,8 @@ const CartNumber: React.FC<CartType> = (props) => {
 
 
     return (
-        
-        <IconButton aria-label="cart" >
+
+        <IconButton aria-label="cart"  >
             <StyledBadge badgeContent={cartNumber} color='error'>
                 <ShoppingCartIcon style={{ width: "40px", height: "40px" }} />
             </StyledBadge>

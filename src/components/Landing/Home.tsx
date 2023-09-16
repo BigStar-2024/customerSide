@@ -93,10 +93,6 @@ const Home = () => {
     }
 
 
-    // console.log("sortedCategories", sortedCategories);
-
-    // console.log("menuDatas", menuDatas);
-
     return (
         <div className="home-container">
             {isLoading && <Loading />}
@@ -124,9 +120,11 @@ const Home = () => {
                         sortedCategories.map((category, index) => {
 
                             return (
-                                <React.Fragment key={category.categoryID}>
+                                <section key={`section-${category.categoryName}`} id={category.categoryName}>
+                                    {/* <React.Fragment key={category.categoryID} > */}
                                     <Category categoryData={category} />
-                                </React.Fragment>
+                                    {/* </React.Fragment> */}
+                                </section>
                             )
                         })
                     }

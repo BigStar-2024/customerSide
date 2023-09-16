@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Carousel from './Carousel'
-// import Add from '@mui/icons-material/Add'
-import { Grid, Stack, IconButton, Typography, Divider, Container } from '@mui/material';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import { Grid, Stack, IconButton, Typography, Divider, Container, Radio } from '@mui/material';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
@@ -201,7 +198,7 @@ const AddItem = () => {
                             <div style={{ position: "relative" }}>
                                 <RecmCarousel />
                                 <div style={{
-                                    position: "absolute", right: -20, bottom: 0,
+                                    position: "absolute", right: 5, bottom: 0,
                                     backgroundColor: 'gray',
                                     borderRadius: '50%',
                                     padding: '5px',
