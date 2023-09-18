@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux-functionality";
 import food1 from "../../Assets/food1.png"
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -69,6 +69,14 @@ const CartComponent: React.FC<CartType> = (props) => {
     const [starHover, setStarHover] = React.useState(-1);
 
     const itemsInCart = useSelector((state: RootState) => state.cartCounter.cartItems);
+
+
+    // const customData = useSelector((state: RootState) => state.siteType);
+
+    // useEffect(() => {
+    //     console.log("customData", customData);
+    // })
+
     // console.log("itemsInCart", itemsInCart);
 
     const [items, setItems] = useState<InitialState[]>(itemsInCart);
@@ -84,6 +92,7 @@ const CartComponent: React.FC<CartType> = (props) => {
     // console.log("items", items);
 
     useEffect(() => {
+
         setOpenCart(cartShow);
 
     }, [cartShow]);
@@ -146,7 +155,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                 >
                     {
                         items.map((item, index) =>
-                            <div key={index}>
+                            <Stack key={index}>
                                 <Card sx={{
                                     display: 'flex', width: 400, minWidth: 275,
                                     ':hover': {
@@ -194,7 +203,7 @@ const CartComponent: React.FC<CartType> = (props) => {
                                     </Box>
                                 </Card>
                                 <Divider />
-                            </div>
+                            </Stack>
                         )
                     }
                     <Grid container spacing={4}>

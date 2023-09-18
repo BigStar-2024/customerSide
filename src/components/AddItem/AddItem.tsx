@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import RecmCarousel from './RecmCarousel';
 import Chip from '@mui/material/Chip';
 // import makeStyles from "@mui/material"
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import makeStyles from '@mui/styles/makeStyles';
 
 import { RootState } from '../../redux-functionality';
@@ -20,6 +20,7 @@ import { InitialState } from '../../types/redux/CartCounter';
 import { Link } from 'react-router-dom';
 import CartIcon from "../Landing/CartIcon"
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useAppSelector } from '../../redux-functionality';
 
 const AddItem = () => {
 
@@ -27,6 +28,7 @@ const AddItem = () => {
     const foodState: InitialState = location.state;
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
 
     const [addNumber, setAddNumber] = useState(foodState.addedNumber ? foodState.addedNumber : 1);
     const [value, setValue] = useState('cheeseB');
@@ -37,9 +39,7 @@ const AddItem = () => {
         setValue((event.target as HTMLInputElement).value);
     };
 
-    // useEffect(() => {
-    //     setAddNumber(foodState.addedNumber);
-    // }, [foodState.addedNumber]);
+
 
     const minuPro = () => {
         if (addNumber == 0)
@@ -61,9 +61,11 @@ const AddItem = () => {
             foodState.addedNumber = addNumber;
             dispatch(addToCart(foodState));
         }
+
+        navigate("/home");
     }
 
-    const itemsInCart = useSelector((state: RootState) => {
+    const itemsInCart = useAppSelector((state: RootState) => {
         if (state && state.cartCounter && !!state.cartCounter.cartItems) {
             return state.cartCounter.cartItems.length
         } else {
@@ -218,11 +220,9 @@ const AddItem = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Link to="/home">
-                                <Button variant="contained" size="medium" onClick={() => addCart(foodState)} >
-                                    {"AddItem"}
-                                </Button>
-                            </Link>
+                            <Button variant="contained" size="medium" onClick={() => addCart(foodState)} >
+                                {"AddItem"}
+                            </Button>
                         </Grid>
                         <Divider />
                     </Grid>

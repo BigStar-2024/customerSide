@@ -129,7 +129,7 @@ const FoodItems: React.FC<foodData> = (props) => {
                 </Paper>
             </Card> */}
             <Card sx={{
-                display: 'flex', maxWidth: "600px", height: "151px",
+                display: 'flex', maxWidth: "600px", maxHeight: "151px",
                 ':hover': {
                     boxShadow: 20,
                 },
@@ -155,10 +155,10 @@ const FoodItems: React.FC<foodData> = (props) => {
                     </Grid>
                     <Grid item xs={4} >
                         {foodData.images[0] ? (
-                            <CardMedia
+                            <Box
                                 component="img"
                                 sx={{ width: 151 }}
-                                image={foodData.images[0]}
+                                src={foodData.images[0]}
                                 alt=""
                             />) : (null)}
                     </Grid>

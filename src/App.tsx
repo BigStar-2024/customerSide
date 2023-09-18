@@ -12,17 +12,31 @@ import Home from './components/Landing/Home';
 import Navbar from "./components/Landing/Navbar";
 import AddItem from './components/AddItem/AddItem';
 
+import { RootState, useAppDispatch } from './redux-functionality';
 import Track from "./components/Tracking/Track"
 import { Provider, useDispatch } from 'react-redux';
 import Payment from "./components/Payment/payment";
+import { useEffect } from "react";
+import { siteTypeThunk } from "./redux-functionality/slices/siteTypeSlice";
+import { ThemeProvider } from "@mui/material"
 // import Scroll from "./components/AddItem/SecondExample"
 
 function App() {
+
+    // const dispatch = useAppDispatch();
+
+    // useEffect(() => {
+
+    //     dispatch(siteTypeThunk()).unwrap();
+
+    // }, [dispatch]);
+
+
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />

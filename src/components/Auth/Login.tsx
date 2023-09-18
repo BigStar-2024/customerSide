@@ -86,6 +86,8 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
 
+    const themeInfo = useSelector((state: RootState) => state.siteType.siteTypeData);
+
     const Root = styled('div')(({ theme }) => ({
         width: '100%',
         ...theme.typography.body2,
@@ -132,6 +134,7 @@ export default function SignUp() {
         if (loginError) {
             // console.log("login error", loginError);
             toast.error(loginError, { position: toast.POSITION.TOP_CENTER });
+            loginError = ""
         }
     }, [loginError])
 
@@ -166,7 +169,7 @@ export default function SignUp() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <ToastContainer />
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{ backgroundImage: themeInfo.coverImage }}>
                 <CssBaseline />
                 <Box
                     sx={{

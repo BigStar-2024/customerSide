@@ -33,9 +33,9 @@ import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfi
 import LanSelector from "./LanSelector"
 
 
-interface MenuTabProps {
-    CategoryClick: (category: string) => void;
-}
+// interface MenuTabProps {
+//     CategoryClick: (category: string) => void;
+// }
 
 
 const labels: { [index: string]: string } = {
@@ -103,11 +103,11 @@ function IconContainer(props: IconContainerProps) {
     return <span {...other}>{customIcons[value].icon}</span>;
 }
 
-const Navbar: React.FC<MenuTabProps> = (props) => {
+const Navbar: React.FC = () => {
 
-    const numberCategoryClick = (category: string) => {
-        props.CategoryClick(category);
-    }
+    // const numberCategoryClick = (category: string) => {
+    //     props.CategoryClick(category);
+    // }
 
     const [waiterProps, setWaiterProps] = React.useState({
         customerOption: 'waiter',
@@ -365,7 +365,7 @@ const Navbar: React.FC<MenuTabProps> = (props) => {
             </Toolbar>
             <Toolbar sx={{ flexWrap: 'wrap' }}>
                 <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-                    <MenuCategory numberCategoryClick={numberCategoryClick} />
+                    <MenuCategory />
                 </Typography>
             </Toolbar>
         </AppBar>

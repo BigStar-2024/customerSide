@@ -2,22 +2,20 @@ import React, { useState, useEffect, useRef, RefObject } from 'react';
 import Navbar from "./Navbar";
 import Category from './Category';
 import Footer from '../Other/Footer';
-import Loading from "../Other/Loading"
 import CartIcon from "./CartIcon";
-import food1 from '../../Assets/food1.png'
-import food2 from '../../Assets/food2.png'
-import food3 from '../../Assets/food3.png'
-import food4 from '../../Assets/food4.png'
-import food5 from '../../Assets/food5.png'
-import food6 from '../../Assets/food6.png'
 import EmptyCart from './EmptyCart'
 import ItemsCart from "./ItemsCart"
+import { getThemeMain } from '../fetchData/ThemeMain'
 
 import { menuData } from "../../helpers/menuData";
 import { categoryData } from '../../helpers/categoryData';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { RootState } from '../../redux-functionality';
-
+import { Box, Container, Fab, IconButton, Stack, ThemeProvider, Tooltip } from '@mui/material';
+import { RootState, useAppDispatch } from '../../redux-functionality';
+import { siteTypeThunk } from "../../redux-functionality/slices/siteTypeSlice"
+import Loading from '../Other/Loading';
+import { toast } from 'react-toastify';
+// import { customData } from "../../redux-functionality/slices/siteTypeSlice"
 
 interface CategoryType {
     categoryID: string;
@@ -28,14 +26,18 @@ interface CategoryType {
     restaurantID: string;
 }
 
-const scrollToDiv = (ref: React.RefObject<HTMLElement>) => {
-    if (ref.current) {
-        window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
-
-    }
-}
+// useSelector((state: RootState) => state.siteType.siteTypeData);
 
 const Home = () => {
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+
+        dispatch(siteTypeThunk()).unwrap();
+
+    }, [dispatch]);
+
 
 
     const itemsInCart = useSelector((state: RootState) => {
@@ -46,15 +48,13 @@ const Home = () => {
         }
     });
 
+    const themeInfo = useSelector((state: RootState) => state.siteType.siteTypeData);
+
     const [isLoading, setIsLoading] = useState(true);
     const [emptyCartShow, setEmptyCartShow] = useState(false);
     const [itemsCartShow, setItemsCartShow] = useState(false);
 
     const menuDatas = menuData.sort((a: any, b: any) => (a.order - b.order));
-
-
-    // "category1", "category2", "category3", "category4"
-    const categoryRefs = useRef<RefObject<HTMLDivElement>[]>([]);
 
     const sortedCategories: CategoryType[] = menuDatas.flatMap((menuData) => {
         const categories = categoryData.filter((category) => category.menuID == menuData.menuID);
@@ -63,19 +63,10 @@ const Home = () => {
     });
 
 
-    const handleCategory = (categoryTitle: string) => {
-        // const categoryIndex = sortedCategories.findIndex((category) => category.categoryName === categoryTitle);
-        // if (categoryIndex !== -1 && categoryRefs.current[categoryIndex] && categoryRefs.current[categoryIndex].current) {
-        //     scrollToDiv(categoryRefs.current[categoryIndex]);
-        // }
-    }
-
-
-
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 2500);
     }, []);
 
     const openCart = (itemNumber: number) => {
@@ -92,51 +83,113 @@ const Home = () => {
         // console.log("closeCart");
     }
 
+    if (isLoading) {
+        return (
+            <>
+                <Navbar />
+                <Loading />
+            </>
+        )
+    }
 
     return (
-        <div className="home-container">
-            {isLoading && <Loading />}
-            <div className={!isLoading ? "home-content" : "home-content hidden"}>
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: '90%',
-                        right: '0',
-                        transform: 'translate(-50%, -50%)',
-                        zIndex: 999,
-                        backgroundColor: 'gray',
-                        borderRadius: '50%',
-                        padding: '5px',
-                    }}
-                    onClick={() => openCart(itemsInCart)}
-                >
-                    <CartIcon cartNumber={itemsInCart} key={"OK"} />
-                </div>
-                <div className="Navbar">
-                    <Navbar CategoryClick={handleCategory} />
-                </div>
-                <div className="home-food-content">
-                    {
-                        sortedCategories.map((category, index) => {
+        <Box>
+            <Fab
+                component="div"
+                onClick={() => openCart(itemsInCart)}
+                size="medium"
+                variant="circular"
+                sx={{
+                    borderRadius: 0,
+                    borderTopLeftRadius: '50%',
+                    borderBottomLeftRadius: '50%',
+                    borderTopRightRadius: '50%',
+                    borderBottomRightRadius: '4px',
+                    top: '80%',
+                    position: 'fixed',
+                    right: 10,
+                    zIndex: 999,
+                    backgroundColor: "gray"
+                }}
+            >
 
-                            return (
-                                <section key={`section-${category.categoryName}`} id={category.categoryName}>
-                                    {/* <React.Fragment key={category.categoryID} > */}
-                                    <Category categoryData={category} />
-                                    {/* </React.Fragment> */}
-                                </section>
-                            )
-                        })
-                    }
-                    <div className="home-foot">
-                        <Footer />
-                    </div>
-                </div>
-                <EmptyCart show={emptyCartShow} closeCart={closeCart} />
-                <ItemsCart show={itemsCartShow} closeCart={closeCart} />
-            </div>
-        </div>
+                <IconButton >
+                    <CartIcon cartNumber={itemsInCart} />
+                </IconButton>
+            </Fab>
+
+            <ThemeProvider theme={getThemeMain(themeInfo)}>
+                <Box sx={{ padding: "30px", backgroundColor: themeInfo.backgroundColor }}>
+                    <Stack className={!isLoading ? "home-content" : "home-content hidden"}>
+
+                        <Stack sx={{ mb: "200px" }}>
+                            <Navbar />
+                        </Stack>
+                        <Stack>
+                            {
+                                sortedCategories.map((category, index) => {
+                                    return (
+                                        <Box key={`section-${category.categoryName}`} id={category.categoryName} >
+                                            <Category categoryData={category} />
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Stack>
+                        <Stack>
+                            <Footer />
+                        </Stack>
+                        <EmptyCart show={emptyCartShow} closeCart={closeCart} />
+                        <ItemsCart show={itemsCartShow} closeCart={closeCart} />
+                    </Stack>
+                </Box>
+            </ThemeProvider>
+        </Box>
     );
 }
 
 export default Home;
+
+
+
+{/* <div className="home-container">
+                {isLoading && <Loading />}
+                <div className={!isLoading ? "home-content" : "home-content hidden"}>
+                    <div
+                        style={{
+                            position: 'fixed',
+                            top: '90%',
+                            right: '0',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 999,
+                            backgroundColor: 'gray',
+                            borderRadius: '50%',
+                            padding: '5px',
+                        }}
+                        onClick={() => openCart(itemsInCart)}
+                    >
+                        <CartIcon cartNumber={itemsInCart} />
+                    </div>
+                    <div className="Navbar">
+                        <Navbar />
+                    </div>
+                    <div className="home-food-content">
+                        {
+                            sortedCategories.map((category, index) => {
+
+                                return (
+                                    <Box key={`section-${category.categoryName}`} id={category.categoryName}>
+                                        
+                                        <Category categoryData={category} />
+                                        
+
+                                    </Box>
+                                )
+                            })
+                        }
+                        <div className="home-foot">
+                            <Footer />
+                        </div>
+                    </div>
+                </div>
+            </div> */}

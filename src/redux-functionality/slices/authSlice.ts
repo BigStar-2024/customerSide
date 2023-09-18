@@ -7,8 +7,8 @@ import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import algoliasearch from 'algoliasearch'
 import { createNullCache } from '@algolia/cache-common'
-import { enqueueSnackbar } from 'notistack'
-import axios from 'axios'
+// import { enqueueSnackbar } from 'notistack'
+// import axios from 'axios'
 import { Dispatch } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 // import { SerializedError } from "../../types/redux/Error";
@@ -69,6 +69,7 @@ export const userLogin = createAsyncThunk("auth/userLogin", async (loginInfo: { 
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log("errorMessage: ", errorMessage);
             switch (errorMessage) {
                 case "Firebase: Error (auth/user-not-found).":
                     throw new Error("user not found. please sign up!");
@@ -125,6 +126,8 @@ export const userSlice = createSlice({
             })
     }
 });
+
+
 export const { addToUser, successAuth } = userSlice.actions;
 
 export default userSlice.reducer;

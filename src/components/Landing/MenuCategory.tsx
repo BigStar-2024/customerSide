@@ -11,6 +11,8 @@ import { Link as ScrollLink } from "react-scroll";
 import { useLayoutEffect, useState } from 'react';
 import { categoryData } from '../../helpers/categoryData';
 import { menuData } from '../../helpers/menuData';
+import { MenuItem, MenuList } from '@mui/material';
+// import {primary} from "@mui/material/colors"
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -46,9 +48,9 @@ function a11yProps(index: number) {
 }
 
 
-interface MenuTabProps {
-    numberCategoryClick: (category: string) => void;
-}
+// interface MenuTabProps {
+//     numberCategoryClick: (category: string) => void;
+// }
 
 
 const categoryTitles1: string[] = ["category1", "category2", "category3"]
@@ -74,7 +76,7 @@ const useStyles: any = makeStyles((theme: any) => ({
     },
     menuLinkActive: {
         // Add your styles here
-        color: "blue"
+        color: "#2196f3"
     },
     menuItem: {
         // Add your styles here
@@ -139,13 +141,13 @@ const useScrollspy = (ids: string[], offset: number = 0) => {
     // console.log("activeId: ", activeId);
     // console.log("menuIndex: ", menuIndex);
 
-    const scrollMeCa = { activeId: activeId, menuIndex: menuIndex >= 0 ? menuIndex : 0 }
+    const scrollMeCa = { activeId: activeId, menuIndex: menuIndex }
 
     return scrollMeCa;
 };
 
 
-const MenuTab: React.FC<MenuTabProps> = (props) => {
+const MenuTab: React.FC = () => {
 
     const { activeId, menuIndex } = useScrollspy(categoryTitles, 54);
 
@@ -159,7 +161,7 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
     const classCategory = useStyles();
 
     React.useEffect(() => {
-        if (menuIndex) {
+        if (menuIndex >= 0) {
             setValue(menuIndex);
         }
         // console.log("menuIndex", menuIndex);
@@ -171,9 +173,9 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
         setValue(newValue);
     };
 
-    const onClick = (numberCategory: number) => {
-        props.numberCategoryClick(categoryTitles1[numberCategory]);
-    }
+    // const onClick = (numberCategory: number) => {
+    //     props.numberCategoryClick(categoryTitles1[numberCategory]);
+    // }
 
 
     return (
@@ -201,18 +203,20 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
                 >
                     {
                         categoryTitles1.map((category) => (
-                            <li key={`category-${category}`} className={classCategory.menuItem}>
+                            <MenuItem key={`category-${category}`}>
                                 <ScrollLink
                                     to={`${category}`}
                                     spy={true}
                                     smooth={true}
                                     offset={-200}
                                     duration={500}
-                                    className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
                                 >
                                     {capitalize(category)}
                                 </ScrollLink>
-                            </li>
+
+                            </MenuItem>
                         ))
                     }
                 </Box>
@@ -230,18 +234,20 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
                 >
                     {
                         categoryTitles2.map((category) => (
-                            <li key={`category-${category}`} className={classCategory.menuItem}>
+                            <MenuItem key={`category-${category}`}>
                                 <ScrollLink
                                     to={`${category}`}
                                     spy={true}
                                     smooth={true}
                                     offset={-200}
                                     duration={500}
-                                    className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
                                 >
                                     {capitalize(category)}
                                 </ScrollLink>
-                            </li>
+
+                            </MenuItem>
                         ))
                     }
                 </Box>
@@ -259,18 +265,20 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
                 >
                     {
                         categoryTitles3.map((category) => (
-                            <li key={`category-${category}`} className={classCategory.menuItem}>
+                            <MenuItem key={`category-${category}`}>
                                 <ScrollLink
                                     to={`${category}`}
                                     spy={true}
                                     smooth={true}
                                     offset={-200}
                                     duration={500}
-                                    className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
                                 >
                                     {capitalize(category)}
                                 </ScrollLink>
-                            </li>
+
+                            </MenuItem>
                         ))
                     }
                 </Box>

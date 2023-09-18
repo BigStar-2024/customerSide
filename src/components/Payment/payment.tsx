@@ -65,10 +65,7 @@ import discover from "../../Assets/icons/discover.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 function Copyright(props: any) {
     return (
