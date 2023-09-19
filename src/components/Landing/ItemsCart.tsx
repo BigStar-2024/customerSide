@@ -71,14 +71,6 @@ const CartComponent: React.FC<CartType> = (props) => {
     const itemsInCart = useSelector((state: RootState) => state.cartCounter.cartItems);
 
 
-    // const customData = useSelector((state: RootState) => state.siteType);
-
-    // useEffect(() => {
-    //     console.log("customData", customData);
-    // })
-
-    // console.log("itemsInCart", itemsInCart);
-
     const [items, setItems] = useState<InitialState[]>(itemsInCart);
 
     // console.log("price", items[0].price);
@@ -89,7 +81,6 @@ const CartComponent: React.FC<CartType> = (props) => {
 
     const [totalPrice, setTotalPrice] = useState(price);
 
-    // console.log("items", items);
 
     useEffect(() => {
 
@@ -132,7 +123,6 @@ const CartComponent: React.FC<CartType> = (props) => {
 
     const currentEmail = useSelector((state: RootState) => state.auth.currentUser);
     const handlePayment = () => {
-        // console.log("currentEmail: ", currentEmail);
         navigate("/payment", { state: currentEmail });
     }
 

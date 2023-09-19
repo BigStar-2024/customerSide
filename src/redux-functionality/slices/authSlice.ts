@@ -99,6 +99,7 @@ export const userSlice = createSlice({
             state.userInfo.userPassword = userPassword;
             state.userInfo.userGender = userGender;
             state.userInfo.userBirth = userBirth;
+
             // console.log("newUser", action);
         },
     },
@@ -106,6 +107,7 @@ export const userSlice = createSlice({
         builder
             .addCase(userSignUp.fulfilled, (state, action) => {
                 state.status = action.payload;
+
             })
             .addCase(userSignUp.rejected, (state, action) => {
                 if (action.error.message) {
@@ -117,6 +119,7 @@ export const userSlice = createSlice({
             .addCase(userLogin.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.currentUser = action.payload;
+                    state.status = "success";
                 }
             })
             .addCase(userLogin.rejected, (state, action) => {

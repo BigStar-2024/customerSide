@@ -11,8 +11,8 @@ img {
 .App {
   min-height: 100vh;
   /* width: 85vw; */
-  max-width: 1900px;
-  margin: 0rem auto;
+  /* max-width: 1900px; */
+  /* margin: 0rem; */
   position: relative;
 }
 
@@ -438,9 +438,6 @@ nav {
   }
   .footer-section-columns {
     margin: 1rem 0rem;
-  }
-  .App {
-    max-width: 95vw;
   }
 }
 @media (max-width: 600px) {

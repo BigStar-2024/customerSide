@@ -53,9 +53,9 @@ function a11yProps(index: number) {
 // }
 
 
-const categoryTitles1: string[] = ["category1", "category2", "category3"]
-const categoryTitles2: string[] = ["category4", "category5", "category6"]
-const categoryTitles3: string[] = ["category7", "category8", "category9"]
+const categoryTitles1: string[] = ["category1", "category2", "category3", "category4", "category5", "category6", "category7", "category8", "category9", "category10"]
+const categoryTitles2: string[] = ["category11", "category12", "category13"]
+const categoryTitles3: string[] = ["category14", "category15", "category16"]
 
 const categoryInfos = categoryData;
 
@@ -76,7 +76,8 @@ const useStyles: any = makeStyles((theme: any) => ({
     },
     menuLinkActive: {
         // Add your styles here
-        color: "#2196f3"
+        color: "#F38A8A",
+        borderBottom: "3px solid #F38A8A",
     },
     menuItem: {
         // Add your styles here
@@ -167,15 +168,11 @@ const MenuTab: React.FC = () => {
         // console.log("menuIndex", menuIndex);
     }, [menuIndex]);
 
-    // const [activeCategory, setActiveCategory] = React.useState(null);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
-    // const onClick = (numberCategory: number) => {
-    //     props.numberCategoryClick(categoryTitles1[numberCategory]);
-    // }
 
 
     return (
@@ -195,7 +192,7 @@ const MenuTab: React.FC = () => {
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        alignItems: 'left',
+                        alignItems: 'right',
                         '& > *': {
                             m: 1,
                         },

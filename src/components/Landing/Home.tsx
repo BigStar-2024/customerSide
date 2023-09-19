@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, RefObject } from 'react';
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import Category from './Category';
 import Footer from '../Other/Footer';
 import CartIcon from "./CartIcon";
@@ -10,11 +10,14 @@ import { getThemeMain } from '../fetchData/ThemeMain'
 import { menuData } from "../../helpers/menuData";
 import { categoryData } from '../../helpers/categoryData';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { Box, Container, Fab, IconButton, Stack, ThemeProvider, Tooltip } from '@mui/material';
+import { useAppSelector } from '../../redux-functionality';
+import { AppBar, Box, Container, Fab, IconButton, Stack, ThemeProvider, Toolbar, Tooltip } from '@mui/material';
 import { RootState, useAppDispatch } from '../../redux-functionality';
 import { siteTypeThunk } from "../../redux-functionality/slices/siteTypeSlice"
 import Loading from '../Other/Loading';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import MenuCategory from './MenuCategory';
 // import { customData } from "../../redux-functionality/slices/siteTypeSlice"
 
 interface CategoryType {
@@ -26,16 +29,13 @@ interface CategoryType {
     restaurantID: string;
 }
 
-// useSelector((state: RootState) => state.siteType.siteTypeData);
 
 const Home = () => {
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-
         dispatch(siteTypeThunk()).unwrap();
-
     }, [dispatch]);
 
 
@@ -47,6 +47,7 @@ const Home = () => {
             return 0;
         }
     });
+
 
     const themeInfo = useSelector((state: RootState) => state.siteType.siteTypeData);
 
@@ -80,7 +81,6 @@ const Home = () => {
     const closeCart = () => {
         setEmptyCartShow(false);
         setItemsCartShow(false);
-        // console.log("closeCart");
     }
 
     if (isLoading) {
@@ -93,6 +93,7 @@ const Home = () => {
     }
 
     return (
+        // <ThemeProvider theme={getThemeMain(themeInfo)}>
         <Box>
             <Fab
                 component="div"
@@ -118,78 +119,46 @@ const Home = () => {
                 </IconButton>
             </Fab>
 
-            <ThemeProvider theme={getThemeMain(themeInfo)}>
-                <Box sx={{ padding: "30px", backgroundColor: themeInfo.backgroundColor }}>
-                    <Stack className={!isLoading ? "home-content" : "home-content hidden"}>
-
-                        <Stack sx={{ mb: "200px" }}>
-                            <Navbar />
-                        </Stack>
-                        <Stack>
-                            {
-                                sortedCategories.map((category, index) => {
-                                    return (
-                                        <Box key={`section-${category.categoryName}`} id={category.categoryName} >
-                                            <Category categoryData={category} />
-                                        </Box>
-                                    )
-                                })
-                            }
-                        </Stack>
-                        <Stack>
-                            <Footer />
-                        </Stack>
-                        <EmptyCart show={emptyCartShow} closeCart={closeCart} />
-                        <ItemsCart show={itemsCartShow} closeCart={closeCart} />
-                    </Stack>
-                </Box>
-            </ThemeProvider>
-        </Box>
-    );
-}
-
-export default Home;
-
-
-
-{/* <div className="home-container">
-                {isLoading && <Loading />}
-                <div className={!isLoading ? "home-content" : "home-content hidden"}>
-                    <div
-                        style={{
-                            position: 'fixed',
-                            top: '90%',
-                            right: '0',
-                            transform: 'translate(-50%, -50%)',
-                            zIndex: 999,
-                            backgroundColor: 'gray',
-                            borderRadius: '50%',
-                            padding: '5px',
-                        }}
-                        onClick={() => openCart(itemsInCart)}
-                    >
-                        <CartIcon cartNumber={itemsInCart} />
-                    </div>
-                    <div className="Navbar">
+            <Box sx={{ padding: "30px" }}>
+                <AppBar
+                    enableColorOnDark
+                    position="fixed"
+                    color="inherit"
+                    elevation={0}
+                    sx={{
+                        // bgcolor: theme.palette.background.default,
+                        // transition: leftDrawerOpened ? theme.transitions.create('width') : 'none'
+                    }}
+                >
+                    <Toolbar>
                         <Navbar />
-                    </div>
-                    <div className="home-food-content">
+                    </Toolbar>
+                </AppBar>
+                <Stack className={!isLoading ? "home-content" : "home-content hidden"}>
+                    <Stack sx={{ mb: "180px" }}>
+                        <MenuCategory />
+                    </Stack>
+                    <Stack sx={{ mb: "30px" }}>
                         {
                             sortedCategories.map((category, index) => {
-
                                 return (
-                                    <Box key={`section-${category.categoryName}`} id={category.categoryName}>
-                                        
+                                    <Box key={`section-${category.categoryName}`} id={category.categoryName} >
                                         <Category categoryData={category} />
-                                        
-
                                     </Box>
                                 )
                             })
                         }
-                        <div className="home-foot">
-                            <Footer />
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+                    </Stack>
+                    <Stack>
+                        <Footer />
+                    </Stack>
+                    <EmptyCart show={emptyCartShow} closeCart={closeCart} />
+                    <ItemsCart show={itemsCartShow} closeCart={closeCart} />
+                </Stack>
+            </Box>
+        </Box>
+        // </ThemeProvider>
+    );
+}
+
+export default Home;

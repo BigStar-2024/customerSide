@@ -20,6 +20,8 @@ interface CartType {
     cartNumber: number;
 }
 
+
+
 const CartNumber: React.FC<CartType> = (props) => {
 
     let cartNumber: number = props.cartNumber;

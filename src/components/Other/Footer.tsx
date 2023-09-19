@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Navbar from "../Landing/Navbar";
+import Navbar from "../Landing/Navbar/Navbar";
 import BannerBackground from "../../Assets/home-banner-background.png";
 import BannerImage from "../../Assets/home-banner-image.png";
 import { FiArrowRight } from "react-icons/fi";

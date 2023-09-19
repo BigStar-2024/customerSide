@@ -9,7 +9,7 @@ import * as React from 'react';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Home from './components/Landing/Home';
-import Navbar from "./components/Landing/Navbar";
+import Navbar from "./components/Landing/Navbar/Navbar";
 import AddItem from './components/AddItem/AddItem';
 
 import { RootState, useAppDispatch } from './redux-functionality';

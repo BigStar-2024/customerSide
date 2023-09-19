@@ -4,14 +4,6 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
-const images = [
-    {
-        url: '/static/images/buttons/breakfast.jpg',
-        title: 'Breakfast',
-        width: '40%',
-    },
-];
-
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
     position: 'relative',
     height: 200,
