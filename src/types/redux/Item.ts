@@ -11,6 +11,10 @@ interface CartItem {
     cartItems: InitialState[];
 }
 
+// interface SearchItem {
+//     searchedItem: InitialState[]
+// }
+
 const UpdateCounterAction: string = "CartCounter";
 
 export default CartItem;

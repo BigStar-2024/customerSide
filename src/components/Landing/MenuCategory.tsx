@@ -11,7 +11,10 @@ import { Link as ScrollLink } from "react-scroll";
 import { useLayoutEffect, useState } from 'react';
 import { categoryData } from '../../helpers/categoryData';
 import { menuData } from '../../helpers/menuData';
-import { MenuItem, MenuList } from '@mui/material';
+import { Container, IconButton, Input, InputAdornment, MenuItem, MenuList, Stack } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { TransitionGroup } from 'react-transition-group';
+import CloseIcon from '@mui/icons-material/Close';
 // import {primary} from "@mui/material/colors"
 
 interface TabPanelProps {
@@ -32,7 +35,7 @@ function CustomTabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box>
+                <Box >
                     <Typography component="div">{children}</Typography>
                 </Box>
             )}
@@ -52,7 +55,7 @@ function a11yProps(index: number) {
 //     numberCategoryClick: (category: string) => void;
 // }
 
-
+// "category4", "category5", "category6", "category7", "category8", "category9", "category10"
 const categoryTitles1: string[] = ["category1", "category2", "category3", "category4", "category5", "category6", "category7", "category8", "category9", "category10"]
 const categoryTitles2: string[] = ["category11", "category12", "category13"]
 const categoryTitles3: string[] = ["category14", "category15", "category16"]
@@ -67,7 +70,7 @@ const useStyles: any = makeStyles((theme: any) => ({
     menuLink: {
         // Add your styles here
         fontWeight: 500,
-        color: '#353535',
+        color: '#000000',
         textDecoration: 'none',
         transition: 'color 0.1s ease',
         display: "flex",
@@ -76,13 +79,13 @@ const useStyles: any = makeStyles((theme: any) => ({
     },
     menuLinkActive: {
         // Add your styles here
-        color: "#F38A8A",
-        borderBottom: "3px solid #F38A8A",
+        color: "red",
     },
     menuItem: {
         // Add your styles here
         // marginRight: "1.5em",
-        display: "inline-block"
+        display: "inline-block",
+        color: '#000000 !important'
     },
 }));
 
@@ -96,6 +99,7 @@ const isBetween = (value: number, floor: number, ceil: number) =>
     value >= floor - 180 && value <= ceil - 180;
 
 // hooks
+
 const useScrollspy = (ids: string[], offset: number = 0) => {
     const [activeId, setActiveId] = useState("");
 
@@ -152,7 +156,7 @@ const MenuTab: React.FC = () => {
 
     const { activeId, menuIndex } = useScrollspy(categoryTitles, 54);
 
-
+    const [showSearchBar, setShowSearchBar] = useState(false);
     const [value, setValue] = React.useState(0);
 
     // const menuIndex = Number(menuInfos.find(({menuID}) => (menuID == (
@@ -168,21 +172,71 @@ const MenuTab: React.FC = () => {
         // console.log("menuIndex", menuIndex);
     }, [menuIndex]);
 
-
+    // let isDraggable = false;
+    // let moveX = 0;
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        console.log("searchInput", event.target.value);
+    }
+
+    // const handleMouseDown = (event: any) => {
+    //     isDraggable = true;
+    //     moveX = event.clientX;
+    //     // Handle the mouse down event here
+    // }
+
+    // const handleMouseMove = (event: any) => {
+    //     if (isDraggable) {
+    //         const moveDiv = document.getElementById('moveDiv');
+    //         if (moveDiv != null) {
+    //             // moveDiv.style.left = moveDiv.scrollLeft + (event.clientX - moveX) + 'px';
+
+    //         }
+    //         moveX = event.clientX;
+    //     }
+    //     // Handle the mouse move event here
+    // }
+
+    // const handleMouseUp = (event: any) => {
+    //     isDraggable = false;
+    //     // Handle the mouse up event here
+    // }
 
 
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="MENU1" {...a11yProps(0)} />
-                    <Tab label="MENU2" {...a11yProps(1)} />
-                    <Tab label="MENU3" {...a11yProps(2)} />
-                </Tabs>
+                {!showSearchBar ? (
+                    <Box sx={{ justifyContent: "space-between", display: "flex", alignItems: "end", }} >
+                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                            <Tab label="MENU1" {...a11yProps(0)} />
+                            <Tab label="MENU2" {...a11yProps(1)} />
+                            <Tab label="MENU3" {...a11yProps(2)} />
+                        </Tabs>
+
+                        <IconButton onClick={() => setShowSearchBar(!showSearchBar)} >
+                            <SearchIcon sx={{ fontSize: "30px" }} />
+                        </IconButton>
+                    </Box>
+                ) : (
+                        <Box sx={{ height: "48px", display: "flex", alignItems: "end", justifyContent: "space-between" }}>
+                            <IconButton >
+                                <SearchIcon sx={{ fontSize: "30px" }} />
+                            </IconButton>
+                            <TransitionGroup>
+                                <Input rows={2} autoFocus inputProps={{ style: { width: "100%" } }} onChange={handleSearch}
+                                // endAdornment={<InputAdornment position="end"><IconButton onClick={() => setShowSearchBar(false)}><CloseIcon /></IconButton></InputAdornment>}
+                                />
+                            </TransitionGroup>
+                            <IconButton onClick={() => setShowSearchBar(!showSearchBar)} >
+                                <CloseIcon sx={{ fontSize: "30px" }} />
+                            </IconButton>
+                        </Box>
+                    )}
             </Box>
             {/* {
                 categoryTitles.map(())
@@ -190,94 +244,144 @@ const MenuTab: React.FC = () => {
             <CustomTabPanel value={value} index={0}>
                 <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'right',
+                        // display: 'flex',
+                        // flexDirection: 'row',
+                        alignItems: 'left',
+                        width: '100%',
+                        color: "#000000",
+                        display: 'block',
                         '& > *': {
                             m: 1,
                         },
                     }}
                 >
-                    {
-                        categoryTitles1.map((category) => (
-                            <MenuItem key={`category-${category}`}>
-                                <ScrollLink
-                                    to={`${category}`}
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-200}
-                                    duration={500}
-                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                >
-                                    {capitalize(category)}
-                                </ScrollLink>
+                    <Box sx={{
+                        display: 'block', whiteSpace: 'nowrap', position: 'relative', overflowX: "scroll",
+                        '&::-webkit-scrollbar': {
+                            display: 'none', // Adjust the width as needed
+                        },
+                    }}
 
-                            </MenuItem>
-                        ))
-                    }
+                        // onMouseDown={handleMouseDown}
+                        // onMouseMove={handleMouseMove}
+                        // onMouseUp={handleMouseUp}
+                        id="moveDiv"
+                    >
+                        {
+                            categoryTitles1.map((category) => (
+                                <MenuItem key={`category-${category}`} sx={{ display: 'inline-block' }}>
+                                    <ScrollLink
+                                        to={`${category}`}
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-200}
+                                        duration={500}
+                                        activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    >
+                                        {capitalize(category)}
+                                    </ScrollLink>
+
+                                </MenuItem>
+                            ))
+                        }
+                    </Box>
                 </Box>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
+
                 <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        // display: 'flex',
+                        // flexDirection: 'row',
                         alignItems: 'left',
+                        width: '100%',
+                        color: "#000000",
+                        display: 'block',
                         '& > *': {
                             m: 1,
                         },
                     }}
                 >
-                    {
-                        categoryTitles2.map((category) => (
-                            <MenuItem key={`category-${category}`}>
-                                <ScrollLink
-                                    to={`${category}`}
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-200}
-                                    duration={500}
-                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                >
-                                    {capitalize(category)}
-                                </ScrollLink>
+                    <Box sx={{
+                        display: 'block', whiteSpace: 'nowrap', position: 'relative', overflowX: "scroll",
+                        '&::-webkit-scrollbar': {
+                            display: 'none', // Adjust the width as needed
+                        },
+                    }}
 
-                            </MenuItem>
-                        ))
-                    }
+                        // onMouseDown={handleMouseDown}
+                        // onMouseMove={handleMouseMove}
+                        // onMouseUp={handleMouseUp}
+                        id="moveDiv"
+                    >
+                        {
+                            categoryTitles2.map((category) => (
+                                <MenuItem key={`category-${category}`} sx={{ display: 'inline-block' }}>
+                                    <ScrollLink
+                                        to={`${category}`}
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-200}
+                                        duration={500}
+                                        activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    >
+                                        {capitalize(category)}
+                                    </ScrollLink>
+
+                                </MenuItem>
+                            ))
+                        }
+                    </Box>
                 </Box>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
+
                 <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        // display: 'flex',
+                        // flexDirection: 'row',
                         alignItems: 'left',
+                        width: '100%',
+                        color: "#000000",
+                        display: 'block',
                         '& > *': {
                             m: 1,
                         },
                     }}
                 >
-                    {
-                        categoryTitles3.map((category) => (
-                            <MenuItem key={`category-${category}`}>
-                                <ScrollLink
-                                    to={`${category}`}
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-200}
-                                    duration={500}
-                                    activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
-                                >
-                                    {capitalize(category)}
-                                </ScrollLink>
+                    <Box sx={{
+                        display: 'block', whiteSpace: 'nowrap', position: 'relative', overflowX: "scroll",
+                        '&::-webkit-scrollbar': {
+                            display: 'none', // Adjust the width as needed
+                        },
+                    }}
 
-                            </MenuItem>
-                        ))
-                    }
+                        // onMouseDown={handleMouseDown}
+                        // onMouseMove={handleMouseMove}
+                        // onMouseUp={handleMouseUp}
+                        id="moveDiv"
+                    >
+                        {
+                            categoryTitles3.map((category) => (
+                                <MenuItem key={`category-${category}`} sx={{ display: 'inline-block' }}>
+                                    <ScrollLink
+                                        to={`${category}`}
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-200}
+                                        duration={500}
+                                        activeClass={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    // className={clsx(classCategory.menuLink, category === activeId && classCategory.menuLinkActive)}
+                                    >
+                                        {capitalize(category)}
+                                    </ScrollLink>
+
+                                </MenuItem>
+                            ))
+                        }
+                    </Box>
                 </Box>
             </CustomTabPanel>
         </Box>

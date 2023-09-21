@@ -1,6 +1,6 @@
 // import CartItem, { UpdateCounterAction } from "../../types/redux/CartCounter";
-import CartItem, { UpdateCounterAction } from "../../types/redux/CartCounter";
-import { InitialState } from "../../types/redux/CartCounter";
+import CartItem, { UpdateCounterAction } from "../../types/redux/Item";
+import { InitialState } from "../../types/redux/Item";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: CartItem = {

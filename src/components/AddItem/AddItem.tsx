@@ -16,7 +16,7 @@ import { RootState } from '../../redux-functionality';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addToCart } from '../../redux-functionality/slices/cartSlice';
-import { InitialState } from '../../types/redux/CartCounter';
+import { InitialState } from '../../types/redux/Item';
 import { Link } from 'react-router-dom';
 import CartIcon from "../Landing/CartIcon"
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -102,11 +102,6 @@ const AddItem = () => {
         }
         return 'N/A';
     };
-
-    useEffect(() => {
-        // This function will be called whenever the lifetimeCount state changes
-        console.log('lifetimeCount changed:');
-    });
 
 
 

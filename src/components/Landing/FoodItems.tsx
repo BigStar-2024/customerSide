@@ -7,9 +7,10 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import ImgButton from './ImgButton';
 import { Link } from "react-router-dom";
-import { InitialState } from '../../types/redux/CartCounter';
+import { InitialState } from '../../types/redux/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useAppSelector } from '../../redux-functionality';
+
 // import food1 from '../../Assets/food1.png'
 
 const Img = styled('img')({
@@ -42,6 +43,8 @@ interface foodData {
     foodData: FoodItemsProps;
     categoryName: string;
 }
+
+
 
 const FoodItems: React.FC<foodData> = (props) => {
 
@@ -166,12 +169,14 @@ const FoodItems: React.FC<foodData> = (props) => {
                 sx={{
                     display: 'flex',
                     border: 'solid',
-                    borderWidth: '2px',
+                    borderWidth: '1px',
                     marginTop: '20px',
                     justifyContent: 'space-between',
+                    height: "130px"
                     //   borderColor: ${props.style.borderColor},
                     //   backgroundColor: ${props.style.backgroundColor}
                 }}
+                className="box-item"
             >
                 <CardContent
                     sx={{
@@ -187,31 +192,47 @@ const FoodItems: React.FC<foodData> = (props) => {
                             display={'flex'}
                             justifyContent={'space-between'}
                             bottom={'auto'}
+                            alignItems="center"
                         >
                             <Typography
+                                variant='h5'
+                                fontWeight="bold"
                             // variant='body4'
                             //   fontSize={Number(props.style.secondaryFontSize)}
                             //   fontWeight={props.style.fontWeight ? 'bold' : ''}
                             >
                                 {foodData.name}
                             </Typography>
-                            <Typography
-                                //   fontSize={Number(props.style.secondaryFontSize)}
-                                // variant='body4'
-                                fontWeight={'bold'}
-                            //   color={props.style.priceColor}
-                            >
-                                {foodData.label}
-                            </Typography>
+                            {foodData.label ? (
+                                <Typography sx={{ height: "17px", backgroundColor: "red", color: "white", borderRadius: "5px", marginRight: "10px", display: "flex", alignItems: "center" }}
+                                    //   fontSize={Number(props.style.secondaryFontSize)}
+                                    // variant='body4'
+                                    fontWeight={'bold'}
+                                    px="10px"
+
+                                //   color={props.style.priceColor}
+                                >
+                                    {foodData.label}
+                                </Typography>
+                            ) : (null)}
+
                         </Box>
-                        <Typography
-                            textAlign={'left'}
-                        //   fontSize={Number(props.style.secondaryFontSize)}
-                        //   fontFamily={props.style.secondaryFont}
-                        //   fontWeight={props.style.fontWeight ? 'bold' : ''}
-                        >
-                            Entree Ingredient Information
-                        </Typography>
+                        <Box component="div" fontSize="15px" height="40px" sx={{
+                            overflowX: 'hidden',
+                            overflowY: "scroll",
+                            '&::-webkit-scrollbar': {
+                                width: '4px',
+                            },
+                            '&::-webkit-scrollbar-track': {
+                                background: 'transparent',
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                                background: 'rgba(0, 0, 0, 0.2)',
+                            },
+                        }}>
+
+                            Entree Ingredient Information Entree Ingredient Information Entree Ingredient Information Entree Ingredient Information Entree Ingredient Information Information Entree Ingredient Information Entree Ingredient Information
+                      </Box>
                     </Box>
 
                     <Box display={'flex'} justifyContent={'space-between'}>
@@ -219,8 +240,10 @@ const FoodItems: React.FC<foodData> = (props) => {
                         <Typography
                             // fontSize={Number(props.style.secondaryFontSize)}
                             textAlign={'left'}
+
                             sx={{
                                 fontWeight: 'bold',
+                                color: "red"
                                 //   fontFamily: ${props.style.secondaryFont},
                                 //   color: ${props.style.categoryColor}
                             }}
@@ -249,7 +272,7 @@ const FoodItems: React.FC<foodData> = (props) => {
 
                     <CardMedia
                         component='img'
-                        sx={{ width: '120px', weight: '120px' }}
+                        sx={{ width: '130px', height: '130px' }}
                         image={foodData.images[0]}
                         alt='MenuX'
                     />

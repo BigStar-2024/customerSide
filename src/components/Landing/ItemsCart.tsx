@@ -26,7 +26,7 @@ import { RootState } from "../../redux-functionality";
 import food1 from "../../Assets/food1.png"
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { InitialState } from "../../types/redux/CartCounter";
+import { InitialState } from "../../types/redux/Item";
 import { useNavigate } from 'react-router-dom';
 import { current } from "@reduxjs/toolkit";
 import AddCircleIcon from '@mui/icons-material/AddCircle';

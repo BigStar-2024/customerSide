@@ -19,6 +19,7 @@ import Payment from "./components/Payment/payment";
 import { useEffect } from "react";
 import { siteTypeThunk } from "./redux-functionality/slices/siteTypeSlice";
 import { ThemeProvider } from "@mui/material"
+
 // import Scroll from "./components/AddItem/SecondExample"
 
 function App() {
@@ -33,10 +34,10 @@ function App() {
 
 
     return (
-        <div className="App">
+        <div >
             <Router>
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<Home />} />

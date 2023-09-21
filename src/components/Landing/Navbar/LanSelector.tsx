@@ -99,16 +99,23 @@ const LanSelector = () => {
             <Box
                 sx={{
                     ml: 2,
-                    mr: 3,
+                    mr: 2,
                 }}
             >
-                <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden', height: "48px" }}>
+                <ButtonBase sx={{
+                    borderRadius: '12px', overflow: 'hidden', height: "48px"
+                }}>
                     <Avatar
                         variant="rounded"
                         sx={{
+                            backgroundColor: "#efefef",
+                            border: "2px solid #858585",
+                            borderRadius: "10px",
                             // ...theme.typography.commonAvatar,
                             // ...theme.typography.mediumAvatar,
                             transition: 'all .2s ease-in-out',
+                            width: "90px",
+                            color: 'black',
                             // background: theme.palette.secondary.light,
                             // color: theme.palette.secondary.dark,
                             '&:hover': {

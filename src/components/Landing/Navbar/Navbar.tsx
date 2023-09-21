@@ -6,32 +6,10 @@ import {
 
 // import { ReactComponent as HelloIcon } from "../Assets/hello-icon.svg";
 import MenuX from "../../../Assets/MenuX.svg";
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import StarIcon from '@mui/icons-material/StarBorder';
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
-import brand2 from '../../../Assets/brand2.png'
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-import DialogContent from '@mui/material/DialogContent';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
-
-import TextField from '@mui/material/TextField';
-import TableRestaurantOutlinedIcon from '@mui/icons-material/TableRestaurantOutlined';
-
-import { styled } from '@mui/material/styles';
-import Rating, { IconContainerProps } from '@mui/material/Rating';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
-import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import LanSelector from "./LanSelector"
 import WaiterComponent from "./Waiter";
-import Feedback from "./Feedback"
+import Feedback from "./Feedback";
+import brand2 from '../../../Assets/brand2.png';
 
 
 // interface MenuTabProps {
@@ -45,17 +23,16 @@ const Navbar: React.FC = () => {
         <>
             <Box
                 sx={{
-                    width: 228,
+                    width: 100,
                     display: 'flex',
                     // [theme.breakpoints.down('md')]: {
                     //     width: 'auto'
                     // }
                 }}
             >
-                <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
-
+                <ButtonBase sx={{ overflow: 'hidden' }}>
                     <Box component="span" sx={{ display: { md: 'block' }, flexGrow: 1 }}>
-                        <img src={MenuX} alt="Website Logo" style={{ width: "40px" }} />
+                        <img src={MenuX} alt="Website Logo" style={{ width: "50px" }} />
                     </Box>
                 </ButtonBase>
             </Box>
@@ -66,6 +43,10 @@ const Navbar: React.FC = () => {
             <WaiterComponent />
             <LanSelector />
             <Feedback />
+
+            <Box component="span" sx={{ display: 'flex' }}>
+                <img src={brand2} alt="Website Logo" style={{ height: "60px" }} />
+            </Box>
         </>
     );
 };

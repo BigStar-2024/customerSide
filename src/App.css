@@ -8,13 +8,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-.App {
-  min-height: 100vh;
-  /* width: 85vw; */
-  /* max-width: 1900px; */
-  /* margin: 0rem; */
-  position: relative;
-}
 
 .Navbar {
   position: fixed;
@@ -25,7 +18,7 @@ img {
 
 .home-food-content {
   justify-content: baseline;
-  margin-top: 200px;
+  /* margin-top: 200px; */
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -462,4 +455,13 @@ nav {
 .link-icons {
   color: red;
   font-size: 30px !important;
+}
+
+.box-item {
+    background-color: black;
+    transition: transform 0.3s ease; /* Add transition for smooth effect */
+}
+
+.box-item:hover {
+    transform: translateY(-5px); /* Move the box item up by 3 pixels */
 }

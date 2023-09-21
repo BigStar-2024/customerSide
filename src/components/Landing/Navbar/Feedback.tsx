@@ -15,7 +15,7 @@ import {
 
 import StarIcon from '@mui/icons-material/StarBorder';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
-import brand2 from '../../../Assets/brand2.png'
+
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 
@@ -111,7 +111,7 @@ const Feedback = () => {
             <Box
                 sx={{
                     ml: 2,
-                    mr: 3,
+                    mr: 5,
 
                 }}
             >
@@ -119,6 +119,9 @@ const Feedback = () => {
                     <Avatar
                         variant="rounded"
                         sx={{
+                            backgroundColor: "#efefef",
+                            border: "2px solid #858585",
+                            borderRadius: "10px",
                             // ...theme.typography.commonAvatar,
                             // ...theme.typography.mediumAvatar,
                             transition: 'all .2s ease-in-out',
@@ -132,7 +135,7 @@ const Feedback = () => {
                         onClick={viewFeedback}
                         color="inherit"
                     >
-                        <ChatOutlinedIcon />
+                        <ChatOutlinedIcon sx={{ color: 'black' }} />
 
                         {/* <IconMenu2 stroke={1.5} size="1.3rem" /> */}
                     </Avatar>
@@ -232,9 +235,6 @@ const Feedback = () => {
                     </Stack>
                 </DialogContent>
             </Dialog>
-            <Box sx={{ my: 1, mx: 1.5 }}>
-                <img src={brand2} alt="Website Logo" />
-            </Box>
         </>
     )
 }

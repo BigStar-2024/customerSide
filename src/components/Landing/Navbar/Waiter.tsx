@@ -71,14 +71,17 @@ const WaiterComponent = () => {
             <Box
                 sx={{
                     ml: 2,
-                    mr: 3,
-
+                    mr: 2,
+                    borderWidth: "1px",
                 }}
             >
                 <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden', height: "48px" }}>
                     <Avatar
-                        variant="rounded"
                         sx={{
+                            backgroundColor: "#efefef",
+                            border: "2px solid #858585",
+                            borderRadius: "10px",
+
                             // ...theme.typography.commonAvatar,
                             // ...theme.typography.mediumAvatar,
                             transition: 'all .2s ease-in-out',
@@ -86,15 +89,13 @@ const WaiterComponent = () => {
                             // color: theme.palette.secondary.dark,
                             '&:hover': {
                                 // background: theme.palette.secondary.dark,
-                                color: theme.palette.secondary.light
+                                // color: theme.palette.secondary.light
                             }
                         }}
                         onClick={callWaiter}
-                        color="inherit"
+
                     >
-                        <Icon>
-                            <img alt="waiter" src={waiterImg} />
-                        </Icon>
+                        <img alt="waiter" src={waiterImg} style={{ width: '30px', height: '30px' }} />
                         {/* <IconMenu2 stroke={1.5} size="1.3rem" /> */}
                     </Avatar>
                 </ButtonBase>
